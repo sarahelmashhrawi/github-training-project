@@ -20,7 +20,6 @@ return new class extends Migration
     $table->string('original_area')->nullable();
     $table->enum('family_type', ['normal','female_headed','orphans'])->default('normal');
     $table->timestamps();
-
     $table->foreign('tent_id')->references('id')->on('tents')->onDelete('cascade');
 });
 

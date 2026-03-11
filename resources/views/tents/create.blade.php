@@ -36,7 +36,7 @@
                         @csrf
                         
                         <div class="mb-4">
-                            <label class="form-label">المنطقة (القاطع)</label>
+                            <label class="form-label">المنطقة</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                                 <select name="sector_id" class="form-select" required>
@@ -58,7 +58,7 @@
                             </div>
                             
                             <div class="col-md-6 mb-4">
-                                <label class="form-label">السعة القصوى (حد أقصى 20)</label>
+                                <label class="form-label">عدد الأفراد (حد أقصى 20)</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-users"></i></span>
                                     <input type="number" name="capacity" class="form-control" value="4" min="1" max="20" required>
@@ -71,10 +71,10 @@
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
                                 <select name="condition" class="form-select" required>
-                                    <option value="good">ممتازة (Good)</option>
-                                    <option value="worn">مهترئة (Worn)</option>
-                                    <option value="needs_shade">تحتاج شوادر (Needs Shade)</option>
-                                    <option value="flooded">غارقة (Flooded)</option>
+                                    <option value="good">ممتازة </option>
+                                    <option value="worn">مهترئة </option>
+                                    <option value="needs_shade">تحتاج شوادر </option>
+                                    <option value="flooded">غارقة </option>
                                 </select>
                             </div>
                         </div>

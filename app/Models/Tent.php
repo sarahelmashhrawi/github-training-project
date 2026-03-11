@@ -17,8 +17,9 @@ class Tent extends Model
     }
 
 
+   
+// علاقة الخيمة بالعائلات (خيمة واحدة قد تحتوي على أكثر من عائلة)
     public function families()
     {
         return $this->hasMany(Family::class);
-    }
-}
+    }    }

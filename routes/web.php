@@ -25,3 +25,4 @@ Route::resource('campaigns', CampaignController::class);
 Route::resource('receivings', ReceivingController::class);
 Route::resource('emergency-needs', EmergencyNeedController::class);
 Route::resource('inventories', InventoryController::class);
+
