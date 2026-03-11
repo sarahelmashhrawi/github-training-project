@@ -11,4 +11,6 @@ class Sector extends Model
     public function tents()
     {
         return $this->hasMany(Tent::class);
-    }}
+    }
+    protected $fillable = ['name', 'supervisor_id', 'description'];
+    }
