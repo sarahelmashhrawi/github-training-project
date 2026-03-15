@@ -102,7 +102,11 @@
                         @if($individual->has_chronic_disease) <span class="badge badge-chronic">{{ $individual->chronic_disease_name }}</span> @endif
                         @if($individual->is_pregnant) <span class="badge" style="background: #fce4ec; color: #ad1457;">حامل 🤰</span> @endif
                         @if($individual->is_breastfeeding) <span class="badge" style="background: #f3e5f5; color: #7b1fa2;">مرضع 🤱</span> @endif
-                        @if(!$individual->has_disability && !$individual->has_chronic_disease && !$individual->is_pregnant) <span class="badge badge-safe">سليم</span> @endif
+                        
+                        {{-- هنا التعديل: أضفت شرط إنه ما يكون مرضع عشان ينطبع سليم --}}
+                        @if(!$individual->has_disability && !$individual->has_chronic_disease && !$individual->is_pregnant && !$individual->is_breastfeeding) 
+                            <span class="badge badge-safe">سليم</span> 
+                        @endif
                     </td>
                     <td class="tent-number">{{ $individual->tent_id ?? ($individual->family->tent_id ?? '---') }}</td>
                     <td>

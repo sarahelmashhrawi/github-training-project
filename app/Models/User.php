@@ -29,6 +29,8 @@ class User extends Authenticatable
         'work_location',
         'contract_type',
         'contract_duration',
+        'name',
+        'avatar',
 
     ];
 

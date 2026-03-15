@@ -17,7 +17,7 @@
                     
                     <div class="mb-3">
                         <label class="form-label fw-bold">اسم المنطقة</label>
-                        <input type="text" name="name" class="form-control" placeholder="مثلاً: القاطع الشمالي" required>
+                        <input type="text" name="name" class="form-control" placeholder="مثلاً:منطقة الوسطى " required>
                     </div>
 
                     <div class="mb-3">
