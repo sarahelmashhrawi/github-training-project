@@ -38,7 +38,7 @@
 
     <div class="card p-4 border-top border-primary border-4">
         
-        <form action="{{ route('individuals.update', $individual->id) }}" method="POST">
+        <form action="{{ route('individuals.update', $individual->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             
@@ -100,6 +100,18 @@
                     @error('dob') <small class="text-danger fw-bold">{{ $message }}</small> @enderror
                 </div>
 
+                <div id="female-options" class="col-12 mt-3 p-3 bg-light rounded border border-info" style="display: none;">
+                    <h6 class="fw-bold text-info"><i class="fas fa-female"></i> بيانات خاصة بالزوجة / الإناث</h6>
+                    <div class="form-check form-switch mt-2">
+                        <input class="form-check-input" type="checkbox" id="is_pregnant" name="is_pregnant" value="1" {{ old('is_pregnant', $individual->is_pregnant) ? 'checked' : '' }}>
+                        <label class="form-check-label fw-bold" for="is_pregnant">هل هي حامل؟</label>
+                    </div>
+                    <div class="form-check form-switch mt-2">
+                        <input class="form-check-input" type="checkbox" id="is_breastfeeding" name="is_breastfeeding" value="1" {{ old('is_breastfeeding', $individual->is_breastfeeding) ? 'checked' : '' }}>
+                        <label class="form-check-label fw-bold" for="is_breastfeeding">هل هي مرضع؟</label>
+                    </div>
+                </div>
+
                 <div class="col-md-12 mt-4">
                     <h5 class="fw-bold border-bottom pb-2 mb-3"><i class="fas fa-notes-medical text-danger me-2"></i> الحالة الصحية</h5>
                 </div>
@@ -134,6 +146,25 @@
                     </div>
                 </div>
 
+                <div class="col-md-12 mt-3">
+                    <label class="form-label fw-bold text-dark">
+                        <i class="fas fa-file-medical text-danger me-1"></i> إرفاق تقرير طبي أو وثيقة إثبات
+                    </label>
+                    <div class="input-group">
+                        <input type="file" name="medical_attachment" id="medical_attachment" class="form-control border-danger" accept=".pdf,.jpg,.jpeg,.png">
+                    </div>
+                    <div class="form-text text-muted small">الصيغ المسموحة: PDF, JPG, PNG (الحد الأقصى 10 ميجابايت).</div>
+                    @error('medical_attachment') <small class="text-danger fw-bold">{{ $message }}</small> @enderror
+                    
+                    @if(isset($individual) && $individual->medical_attachment)
+                        <div class="mt-2">
+                            <a href="{{ asset('storage/' . $individual->medical_attachment) }}" target="_blank" class="btn btn-sm btn-outline-danger">
+                                <i class="fas fa-eye"></i> عرض المرفق الحالي المرفوع مسبقاً
+                            </a>
+                        </div>
+                    @endif
+                </div>
+
             </div>
 
             <hr class="my-4">
@@ -149,36 +180,84 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // سكربت إظهار وإخفاء الحقول الطبية عند الضغط على الأزرار
     document.addEventListener("DOMContentLoaded", function() {
         
-        // للإعاقات
+        // --- سكربت الإعاقات والأمراض ---
         const disabilityCheckbox = document.getElementById('has_disability');
         const disabilitySection = document.getElementById('disability_section');
-        
-        disabilityCheckbox.addEventListener('change', function() {
-            if(this.checked) {
-                disabilitySection.style.display = 'block';
-            } else {
-                disabilitySection.style.display = 'none';
-                // تصفير القيمة عند الإغلاق
-                disabilitySection.querySelector('select').selectedIndex = 0; 
-            }
-        });
+        if(disabilityCheckbox) {
+            disabilityCheckbox.addEventListener('change', function() {
+                if(this.checked) {
+                    disabilitySection.style.display = 'block';
+                } else {
+                    disabilitySection.style.display = 'none';
+                    disabilitySection.querySelector('select').selectedIndex = 0; 
+                }
+            });
+        }
 
-        // للأمراض المزمنة
         const chronicCheckbox = document.getElementById('has_chronic_disease');
         const chronicSection = document.getElementById('chronic_disease_section');
-        
-        chronicCheckbox.addEventListener('change', function() {
-            if(this.checked) {
-                chronicSection.style.display = 'block';
+        if(chronicCheckbox) {
+            chronicCheckbox.addEventListener('change', function() {
+                if(this.checked) {
+                    chronicSection.style.display = 'block';
+                } else {
+                    chronicSection.style.display = 'none';
+                    chronicSection.querySelector('input').value = ''; 
+                }
+            });
+        }
+
+        // --- سكربت ربط صلة القرابة بالجنس وإظهار بيانات الإناث ---
+        const relationSelect = document.querySelector('select[name="relation_to_head"]');
+        const genderSelect = document.querySelector('select[name="gender"]');
+        const femaleOptionsDiv = document.getElementById('female-options');
+        const isPregnantCheckbox = document.getElementById('is_pregnant');
+        const isBreastfeedingCheckbox = document.getElementById('is_breastfeeding');
+
+        const maleRelations = ['زوج', 'ابن', 'أب', 'أخ', 'حفيد'];
+        const femaleRelations = ['زوجة', 'ابنة', 'أم', 'أخت', 'حفيدة'];
+
+        function applyConstraints() {
+            const selectedRelation = relationSelect.value;
+
+            // تحديد الجنس بناءً على القرابة
+            if (maleRelations.includes(selectedRelation)) {
+                genderSelect.value = 'male';
+                lockGenderSelect();
+            } else if (femaleRelations.includes(selectedRelation)) {
+                genderSelect.value = 'female';
+                lockGenderSelect();
             } else {
-                chronicSection.style.display = 'none';
-                // تصفير النص عند الإغلاق
-                chronicSection.querySelector('input').value = ''; 
+                unlockGenderSelect(); 
             }
-        });
+
+            // إظهار أو إخفاء خيارات الإناث
+            if (genderSelect.value === 'female') {
+                femaleOptionsDiv.style.display = 'block';
+            } else {
+                femaleOptionsDiv.style.display = 'none';
+                if(isPregnantCheckbox) isPregnantCheckbox.checked = false;
+                if(isBreastfeedingCheckbox) isBreastfeedingCheckbox.checked = false;
+            }
+        }
+
+        function lockGenderSelect() {
+            genderSelect.style.pointerEvents = 'none';
+            genderSelect.style.backgroundColor = '#e9ecef';
+        }
+
+        function unlockGenderSelect() {
+            genderSelect.style.pointerEvents = 'auto';
+            genderSelect.style.backgroundColor = '#fff';
+        }
+
+        if(relationSelect) relationSelect.addEventListener('change', applyConstraints);
+        if(genderSelect) genderSelect.addEventListener('change', applyConstraints);
+
+        // التشغيل عند التحديث أو التحميل لأول مرة
+        applyConstraints();
     });
 </script>
 </body>

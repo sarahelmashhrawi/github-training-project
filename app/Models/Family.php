@@ -15,9 +15,11 @@ class Family extends Model
         'head_name', 
         'id_number', 
         'phone', 
+        'dob',
         'original_area', 
         'current_area',
-        'family_type'
+        'family_type',
+        'marital_status'
     ];
 
     // علاقة العائلة بالخيمة (عائلة واحدة تتبع لخيمة واحدة)

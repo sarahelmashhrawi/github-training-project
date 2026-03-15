@@ -13,7 +13,9 @@ class Individual extends Model
    protected $fillable = [
 
     'family_id', 'full_name', 'id_number', 'dob', 'gender', 'relation_to_head', 
-    'has_disability', 'disability_type', 'has_chronic_disease', 'chronic_disease_name' 
+    'has_disability', 'disability_type', 'has_chronic_disease', 'chronic_disease_name' ,'medical_attachment','is_pregnant',
+    'is_breastfeeding','is_pregnant', 
+    'is_breastfeeding',
 ];
 
     // علاقة الفرد بالعائلة (الفرد يتبع لعائلة واحدة)

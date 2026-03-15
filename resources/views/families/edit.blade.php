@@ -77,6 +77,26 @@
                             </div>
                         </div>
 
+                        {{-- تمت إضافة خانة تاريخ الميلاد هنا وعرض القيمة القديمة --}}
+                        <div class="mb-4">
+                            <label class="form-label">تاريخ الميلاد</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                <input type="date" name="dob" class="form-control" value="{{ $family->dob }}" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">الحالة الاجتماعية لرب الأسرة</label>
+                            <select name="marital_status" class="form-select">
+                                <option value="">اختر الحالة...</option>
+                                <option value="متزوج">متزوج / متزوجة</option>
+                                <option value="أعزب">أعزب / عزباء</option>
+                                <option value="أرمل">أرمل / أرملة</option>
+                                <option value="مطلق">مطلق / مطلقة</option>
+                            </select>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-4 mb-4">
                                 <label class="form-label">رقم الهوية</label>
@@ -102,13 +122,15 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="col-md-6 mb-4">
-    <label class="form-label">المنطقة الحالية</label>
-    <div class="input-group">
-        <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
-        <input type="text" name="current_area" class="form-control" value="{{ $family->current_area }}">
-    </div>
-</div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">المنطقة الحالية</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                <input type="text" name="current_area" class="form-control" value="{{ $family->current_area }}">
+                            </div>
+                        </div>
+
                         <div class="row mt-4">
                             <div class="col-md-8 mb-2">
                                 <button type="submit" class="btn btn-update shadow-sm">

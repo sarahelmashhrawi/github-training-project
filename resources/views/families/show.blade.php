@@ -108,11 +108,12 @@
                         <th>رقم الهوية</th>
                         <th>الجنس</th>
                         <th>العمر</th>
-                        <th>حالة خاصة</th>
+                        <th>الحالة الصحية</th>
+                        <th>المرفقات</th>
                         <th class="text-center">إجراءات</th>
                     </tr>
                 </thead>
-               <tbody>
+                <tbody>
                     @forelse($family->individuals as $individual)
                     <tr>
                         <td class="fw-bold text-dark">{{ $individual->full_name }}</td>
@@ -130,30 +131,77 @@
                                 <span class="text-muted">غير محدد</span>
                             @endif
                         </td>
+                        
                         <td>
-                            @if($individual->special_status)
-                                <span class="badge bg-danger px-2 py-1"><i class="fas fa-heartbeat me-1"></i> {{ $individual->special_status }}</span>
-                            @else
-                                -
+                            @if($individual->has_disability)
+                                <span class="badge bg-danger mb-1">إعاقة: {{ $individual->disability_type }}</span>
+                                <br>
+                            @endif
+
+                            @if($individual->has_chronic_disease)
+                                <span class="badge bg-warning text-dark">مرض: {{ $individual->chronic_disease_name }}</span>
+                            @endif
+
+                            @if(!$individual->has_disability && !$individual->has_chronic_disease)
+                                <span class="text-muted">-</span>
                             @endif
                         </td>
+
+                        <td>
+                            @if($individual->medical_attachment)
+                                <a href="{{ asset('storage/' . $individual->medical_attachment) }}" target="_blank" class="btn btn-sm btn-outline-info" title="عرض المرفق">
+                                    <i class="fas fa-file-medical"></i> عرض
+                                </a>
+                            @else
+                                <span class="text-muted small">-</span>
+                            @endif
+                        </td>
+
                         <td class="text-center">
                             <a href="{{ route('individuals.edit', $individual->id) }}" class="btn btn-sm btn-outline-primary border-0" title="تعديل">
                                 <i class="fas fa-edit"></i>
                             </a>
                             
-                            <form action="{{ route('individuals.destroy', $individual->id) }}" method="POST" class="d-inline" onsubmit="return confirm('هل أنت متأكد من حذف هذا الفرد من العائلة بشكل نهائي؟');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger border-0" title="حذف">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </td>
+                            <button type="button" class="btn btn-sm btn-outline-danger border-0" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $individual->id }}" title="حذف">
+                                <i class="fas fa-trash"></i>
+                            </button>
+
+                            <div class="modal fade" id="deleteModal{{ $individual->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $individual->id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content border-0 shadow">
+                                        <div class="modal-header bg-danger text-white">
+                                            <h5 class="modal-title fw-bold" id="deleteModalLabel{{ $individual->id }}">
+                                                <i class="fas fa-exclamation-triangle me-2"></i> تأكيد الحذف
+                                            </h5>
+                                            <button type="button" class="btn-close btn-close-white ms-0 me-auto" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                                        </div>
+                                        <div class="modal-body text-center p-4">
+                                            <div class="mb-3">
+                                                <i class="fas fa-trash-alt text-danger" style="font-size: 3rem;"></i>
+                                            </div>
+                                            <h5 class="fw-bold text-dark">هل أنت متأكد من حذف هذا الفرد؟</h5>
+                                            <p class="text-muted">الاسم: <span class="fw-bold text-danger">{{ $individual->full_name }}</span></p>
+                                            <p class="text-muted small">لا يمكن التراجع عن هذا الإجراء بعد تنفيذه.</p>
+                                        </div>
+                                        <div class="modal-footer justify-content-center bg-light">
+                                            <button type="button" class="btn btn-secondary px-4 fw-bold" data-bs-dismiss="modal">تراجع</button>
+                                            
+                                            <form action="{{ route('individuals.destroy', $individual->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger px-4 fw-bold">
+                                                    نعم، احذف الفرد
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="text-center py-5 text-muted">
+                        <td colspan="8" class="text-center py-5 text-muted">
                             <i class="fas fa-user-times fa-4x mb-3 opacity-25"></i>
                             <h5 class="mb-2">لا يوجد أفراد مسجلين لهذه العائلة حالياً.</h5>
                             <p class="small">اضغطي على زر "إضافة فرد" لتسجيل الزوجة أو الأبناء.</p>

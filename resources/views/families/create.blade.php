@@ -56,9 +56,9 @@
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-clipboard-list"></i></span>
                                     <select name="family_type" class="form-select" required>
-                                        <option value="normal">عائلة طبيعية (Normal)</option>
-                                        <option value="female_headed">تعيلها امرأة (Female Headed)</option>
-                                        <option value="orphans">أيتام (Orphans)</option>
+                                        <option value="normal">عائلة طبيعية </option>
+                                        <option value="female_headed">تعيلها امرأة </option>
+                                        <option value="orphans">أيتام </option>
                                     </select>
                                 </div>
                             </div>
@@ -70,6 +70,26 @@
                                 <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                                 <input type="text" name="head_name" class="form-control" placeholder="الاسم الرباعي" required>
                             </div>
+                        </div>
+
+                        {{-- تمت إضافة خانة تاريخ الميلاد هنا --}}
+                        <div class="mb-4">
+                            <label class="form-label">تاريخ الميلاد</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                <input type="date" name="dob" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">الحالة الاجتماعية لرب الأسرة</label>
+                            <select name="marital_status" class="form-select">
+                                <option value="">اختر الحالة...</option>
+                                <option value="متزوج">متزوج / متزوجة</option>
+                                <option value="أعزب">أعزب / عزباء</option>
+                                <option value="أرمل">أرمل / أرملة</option>
+                                <option value="مطلق">مطلق / مطلقة</option>
+                            </select>
                         </div>
 
                         <div class="row">
@@ -90,20 +110,22 @@
                             </div>
 
                             <div class="col-md-4 mb-4">
-                                <label class="form-label">المنطقة الأصلية (النزوح)</label>
+                                <label class="form-label">المنطقة الأصلية</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
                                     <input type="text" name="original_area" class="form-control" placeholder="مثال: غزة - الرمال">
                                 </div>
                             </div>
                         </div>
-                                <div class="col-md-6 mb-4">
-                                    <label class="form-label">المنطقة الحالية</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
-                                        <input type="text" name="current_area" class="form-control" placeholder="مثال: دير البلح - المواصي">
-                                    </div>
-                                </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">المنطقة الحالية</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                <input type="text" name="current_area" class="form-control" placeholder="مثال: دير البلح - المواصي">
+                            </div>
+                        </div>
+
                         <div class="mt-4">
                             <button type="submit" class="btn btn-save shadow-sm">
                                 <i class="fas fa-save me-1"></i> حفظ بيانات العائلة
