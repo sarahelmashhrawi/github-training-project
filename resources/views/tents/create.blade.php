@@ -42,7 +42,7 @@
                                 <select name="sector_id" class="form-select" required>
                                     <option value="">-- اختر المنطقة التابعة لها --</option>
                                     @foreach($sectors as $sector)
-                                        <option value="{{ $sector->id }}">{{ $sector->name }}</option>
+                                        <option value="{{ $sector->id }}">{{ $sector->name }} - {{ $sector->description }}</option>
                                     @endforeach
                                 </select>
                             </div>

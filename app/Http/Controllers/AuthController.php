@@ -1,19 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller; 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class AuthController
+class AuthController 
 {
-   // 1. عرض صفحة تسجيل الدخول
+    // 1. عرض صفحة تسجيل الدخول
     public function showLoginForm()
     {
-        // إذا كان مسجل دخول أصلاً، بنحوله للوحة التحكم مباشرة عشان ما يرجع يسجل
+        // إذا كان مسجل دخول أصلاً، بنحوله للوحة التحكم مباشرة
         if (Auth::check()) {
             return redirect()->route('dashboard'); 
         }
-        return view('auth.login'); // هاي الشاشة اللي صممناها قبل شوي
+        return view('auth.login');
     }
 
     // 2. التحقق من البيانات وتسجيل الدخول
@@ -21,22 +23,26 @@ class AuthController
     {
         // التحقق من الحقول
         $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ], [
             'email.required' => 'يرجى إدخال البريد الإلكتروني.',
+            'email.email' => 'يرجى إدخال بريد إلكتروني صحيح.',
             'password.required' => 'يرجى إدخال كلمة المرور.'
         ]);
 
         // محاولة الدخول
+        // دالة attempt تقارن كلمة المرور المدخلة مع الهاش (Bcrypt) المخزن في قاعدة البيانات تلقائياً
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
-            $request->session()->regenerate(); // حماية إضافية (Session Fixation)
             
-            // تحويله للوحة التحكم
-            return redirect()->intended('dashboard');
+            // حماية من هجمات Session Fixation
+            $request->session()->regenerate(); 
+            
+            // تحويله للمكان الذي كان يحاول الوصول إليه أو للداشبورد كخيار افتراضي
+            return redirect()->intended(route('dashboard'));
         }
 
-        // إذا الإيميل أو الباسورد غلط، بنرجعه لصفحة الدخول مع رسالة خطأ
+        // إذا البيانات خطأ، نرجعه مع رسالة تنبيه
         return back()->withErrors([
             'email' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة.',
         ])->onlyInput('email');
@@ -47,7 +53,7 @@ class AuthController
     {
         Auth::logout();
         
-        // تنظيف الجلسة للحماية
+        // تنظيف الجلسة وتجديد التوكن للحماية القصوى
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         

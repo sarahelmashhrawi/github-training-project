@@ -23,12 +23,12 @@ class SectorController
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        $users = \App\Models\User::all(); 
-        return view('sectors.create', compact('users'));
-        return view('sectors.create');
-    }
+   public function create()
+{
+    $users = \App\Models\User::where('role', 'sector_supervisor')->get(); 
+        
+    return view('sectors.create', compact('users'));
+}
 
     /**
      * Store a newly created resource in storage.
@@ -53,8 +53,8 @@ public function store(Request $request) {
 
 public function edit(Sector $sector)
 {
-    $users = \App\Models\User::all();
-    return view('sectors.edit', compact('sector', 'users'));
+             $users = \App\Models\User::where('role', 'sector_supervisor')->get();
+             return view('sectors.edit', compact('sector', 'users'));
 }
 
 

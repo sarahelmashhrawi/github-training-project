@@ -3,63 +3,53 @@
 namespace App\Http\Controllers;
 
 use App\Models\Receiving;
+use App\Models\Family;
+use App\Models\Inventory;
+use App\Models\Campaign;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class ReceivingController
+class ReceivingController 
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    public function index() {
+        // بجلب البيانات مع علاقاتها      
+        $receivings = Receiving::with(['family', 'inventory', 'campaign'])->latest()->get();
+        return view('receivings.index', compact('receivings'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function create() {
+        $families = Family::all();
+        $inventories = Inventory::where('available_quantity', '>', 0)->get();
+        $campaigns = Campaign::all();
+        return view('receivings.create', compact('families', 'inventories', 'campaigns'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $data = $request->validate([
+            'family_id'         => 'required|exists:families,id',
+            'inventory_id'      => 'required|exists:inventories,id',
+            'quantity_received' => 'required|integer|min:1',
+            'campaign_id'       => 'required|exists:campaigns,id',
+        ]);
+
+        $data['user_id'] = Auth::id();
+
+        // تسجيل الاستلام
+        Receiving::create($data);
+
+        // تحديث المخزن تلقائياً
+        Inventory::find($request->inventory_id)->decrement('available_quantity', $request->quantity_received);
+
+        return redirect()->route('receivings.index')->with('success', 'تم تسجيل الاستلام وتحديث المخزن');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Receiving $receiving)
-    {
-        //
+    public function destroy(Receiving $receiving) {
+        // لو حذفنا عملية استلام، لازم نرجع الكمية للمخزن 
+        Inventory::find($receiving->inventory_id)->increment('available_quantity', $receiving->quantity_received);
+        
+        $receiving->delete();
+        return redirect()->route('receivings.index')->with('success', 'تم إلغاء الاستلام وإرجاع الكمية للمخزن');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Receiving $receiving)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Receiving $receiving)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Receiving $receiving)
-    {
-        //
-    }
+    
+    // Edit في الاستلام غالباً ما بنعمله عشان الرقابة المالية، الحذف والإضافة أضمن.
 }

@@ -12,6 +12,8 @@ use App\Http\Controllers\ReceivingController;
 use App\Http\Controllers\EmergencyNeedController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 use App\Models\Individual;
 use App\Models\Tent;
 use App\Models\Family;
@@ -39,7 +41,7 @@ Route::middleware('auth')->group(function () {
     // مسار تسجيل الخروج
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // 🚀 مسارات إدارة المخيم (كلها صارت محمية وجاهزة للاستخدام)
+    // 🚀 مسارات إدارة المخيم (كلها محمية وجاهزة للاستخدام)
     Route::resource('sectors', SectorController::class);
     Route::resource('tents', TentController::class);
     Route::resource('families', FamilyController::class);
@@ -48,4 +50,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('receivings', ReceivingController::class);
     Route::resource('emergency-needs', EmergencyNeedController::class);
     Route::resource('inventories', InventoryController::class);
-});
+    Route::post('/profile/avatar', [UserController::class, 'updateAvatar'])->name('profile.avatar');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    });

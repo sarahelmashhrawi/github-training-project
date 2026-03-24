@@ -14,10 +14,15 @@ class DatabaseSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'admin@admin.com'], // الإيميل
             [
-                'name' => 'المدير', // الاسم الأول (أو firstname إذا كنتِ مسمياه هيك)
-                'lastname' => 'العام', // 👈 هذا هو السطر اللي كان ناقصنا!
-                'password' => Hash::make('12345678'), // الباسورد
+                'name' => 'المدير', 
+                'password' => Hash::make('12345678'), 
             ]
         );
+
+User::create([
+    'name' => 'Hind Rakha',
+    'email' => 'hind@admin.com',
+    'password' => Hash::make('12345678'), // ضروري جداً استخدام Hash::make
+]);
     }
 }

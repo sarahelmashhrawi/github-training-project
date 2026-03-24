@@ -17,12 +17,19 @@
                     
                     <div class="mb-3">
                         <label class="form-label fw-bold">اسم المنطقة</label>
-                        <input type="text" name="name" class="form-control" placeholder="مثلاً:منطقة الوسطى " required>
+                        <select name="name" class="form-select" required>
+                            <option value="" disabled selected>-- اختر المنطقة --</option>
+                            <option value="محافظة شمال غزة">محافظة شمال غزة</option>
+                            <option value="محافظة غزة">محافظة غزة</option>
+                            <option value="المحافظة الوسطى">المحافظة الوسطى</option>
+                            <option value="محافظة خانيونس">محافظة خانيونس</option>
+                            <option value="محافظة رفح">محافظة رفح</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label fw-bold">وصف المنطقة</label>
-                        <textarea name="description" class="form-control" rows="3" placeholder="اكتبي وصفاً بسيطاً للمنطقة..."></textarea>
+                        <label class="form-label fw-bold">العنوان </label>
+                        <textarea name="description" class="form-control" rows="3" placeholder="اكتب العنوان بالتفصيل  او اقرب معلم "></textarea>
                     </div>
 
                     <div class="mb-3">
@@ -30,7 +37,7 @@
                         <select name="supervisor_id" class="form-select">
                             <option value="">-- اختر مشرفاً من القائمة --</option>
                             @foreach($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                <option value="{{ $user->id }}">{{ $user->name }} - ({{ $user->phone ?? 'لا يوجد رقم' }})</option>
                             @endforeach
                         </select>
                     </div>

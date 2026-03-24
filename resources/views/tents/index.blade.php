@@ -70,9 +70,13 @@
                             <td class="text-center">
                                 <div class="btn-group gap-2">
                                     <a href="{{ route('tents.edit', $tent->id) }}" class="btn btn-outline-warning btn-sm border-0"><i class="fas fa-edit fa-lg"></i></a>
-                                    <form action="{{ route('tents.destroy', $tent->id) }}" method="POST" class="d-inline">
-                                        @csrf @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger btn-sm border-0"><i class="fas fa-trash-alt fa-lg"></i></button>
+                                    
+                                    <form action="{{ route('tents.destroy', $tent->id) }}" method="POST" class="d-inline delete-form">
+                                        @csrf 
+                                        @method('DELETE')
+                                        <button type="button" class="btn btn-outline-danger btn-sm border-0 delete-btn">
+                                            <i class="fas fa-trash-alt fa-lg"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </td>
@@ -88,5 +92,34 @@
         </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // نجلب كل أزرار الحذف في الصفحة
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const form = this.closest('.delete-form'); // نجلب الفورم الخاص بالزر اللي انضغط
+
+                    Swal.fire({
+                        title: 'هل أنت متأكد؟',
+                        text: "لن تتمكن من التراجع عن حذف هذه الخيمة!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'نعم، احذفها!',
+                        cancelButtonText: 'إلغاء'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit(); // إذا وافق المستخدم، بنعمل Submit للفورم
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>

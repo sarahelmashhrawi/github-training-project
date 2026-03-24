@@ -5,61 +5,44 @@ namespace App\Http\Controllers;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
 
-class InventoryController
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+class InventoryController {
+    public function index() {
+        $items = Inventory::all();
+        return view('inventories.index', compact('items'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('inventories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $data = $request->validate([
+            'item_name' => 'required|string',
+            'total_quantity' => 'required|integer',
+            'available_quantity' => 'required|integer',
+            'category' => 'required|string',
+        ]);
+        Inventory::create($data);
+        return redirect()->route('inventories.index')->with('success', 'تم إضافة الصنف');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Inventory $inventory)
-    {
-        //
+    public function edit(Inventory $inventory) {
+        return view('inventories.edit', compact('inventory'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Inventory $inventory)
-    {
-        //
+    public function update(Request $request, Inventory $inventory) {
+        $data = $request->validate([
+            'item_name' => 'required|string',
+            'total_quantity' => 'required|integer',
+            'available_quantity' => 'required|integer',
+            'category' => 'required|string',
+        ]);
+        $inventory->update($data);
+        return redirect()->route('inventories.index')->with('success', 'تم تحديث المخزن');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Inventory $inventory)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Inventory $inventory)
-    {
-        //
+    public function destroy(Inventory $inventory) {
+        $inventory->delete();
+        return redirect()->route('inventories.index')->with('success', 'تم حذف الصنف');
     }
 }

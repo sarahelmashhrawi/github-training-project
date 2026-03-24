@@ -21,4 +21,13 @@ class Receiving extends Model
     {
         return $this->belongsTo(Campaign::class);
     }
+
+    public function inventory()
+{
+    return $this->belongsTo(Inventory::class);
+}
+public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

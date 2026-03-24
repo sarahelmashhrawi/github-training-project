@@ -12,7 +12,7 @@
         .card { border: none; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow: hidden; }
         .card-header { border: none; padding: 20px; background: linear-gradient(45deg, #ffc107, #ff9800); }
         .form-control, .form-select { border-radius: 10px; border: 1px solid #ddd; padding: 12px; }
-        .form-control:focus { box-shadow: 0 0 10px rgba(255, 193, 7, 0.2); border-color: #ffc107; }
+        .form-control:focus, .form-select:focus { box-shadow: 0 0 10px rgba(255, 193, 7, 0.2); border-color: #ffc107; }
         .btn-update { background: #ffc107; border: none; border-radius: 10px; padding: 10px 30px; font-weight: bold; color: #222; }
         .btn-update:hover { background: #e0a800; }
     </style>
@@ -35,7 +35,14 @@
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">اسم المنطقة</label>
-                                <input type="text" name="name" id="sectorName" class="form-control" value="{{ $sector->name }}" required>
+                                <select name="name" id="sectorName" class="form-select" required>
+                                    <option value="" disabled>-- اختاري المنطقة --</option>
+                                    <option value="محافظة شمال غزة" {{ $sector->name == 'محافظة شمال غزة' ? 'selected' : '' }}>محافظة شمال غزة</option>
+                                    <option value="محافظة غزة" {{ $sector->name == 'محافظة غزة' ? 'selected' : '' }}>محافظة غزة</option>
+                                    <option value="المحافظة الوسطى" {{ $sector->name == 'المحافظة الوسطى' ? 'selected' : '' }}>المحافظة الوسطى</option>
+                                    <option value="محافظة خانيونس" {{ $sector->name == 'محافظة خانيونس' ? 'selected' : '' }}>محافظة خانيونس</option>
+                                    <option value="محافظة رفح" {{ $sector->name == 'محافظة رفح' ? 'selected' : '' }}>محافظة رفح</option>
+                                </select>
                             </div>
 
                             <div class="mb-3">
@@ -49,7 +56,7 @@
                                     <option value="">-- اختر مشرفاً من القائمة --</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}" {{ $sector->supervisor_id == $user->id ? 'selected' : '' }}>
-                                            {{ $user->name }}
+                                            {{ $user->name }} - ({{ $user->phone ?? 'لا يوجد رقم' }})
                                         </option>
                                     @endforeach
                                 </select>
@@ -75,8 +82,8 @@
             $('#submitBtn').on('click', function() {
                 let name = $('#sectorName').val();
 
-                if(name.trim() === '') {
-                    Swal.fire('خطأ!', 'اسم المنطقة مطلوب', 'error');
+                if(!name || name.trim() === '') {
+                    Swal.fire('خطأ!', 'الرجاء اختيار اسم المنطقة', 'error');
                     return;
                 }
 

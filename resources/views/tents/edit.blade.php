@@ -40,16 +40,17 @@
                             
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold">السعة (أفراد)</label>
-                                <input type="number" name="capacity" class="form-control" value="{{ $tent->capacity }}" min="1" required>
+                                <input type="number" name="capacity" class="form-control" value="{{ $tent->capacity }}" min="1" max="20" required>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label fw-bold">المنطقة التابعة لها</label>
                             <select name="sector_id" class="form-select" required>
+                                <option value="" disabled>-- اختر المنطقة --</option>
                                 @foreach($sectors as $sector)
                                     <option value="{{ $sector->id }}" {{ $tent->sector_id == $sector->id ? 'selected' : '' }}>
-                                        {{ $sector->name }}
+                                        {{ $sector->name }} - {{ $sector->description }}
                                     </option>
                                 @endforeach
                             </select>
@@ -100,7 +101,6 @@
         });
     });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @if($errors->any())
     <script>
@@ -109,7 +109,7 @@
             title: 'عذراً، هناك خطأ!',
             text: "{{ $errors->first() }}",
             confirmButtonColor: '#d33',
-            confirmButtonText: 'حسناً، سأقوم بالتعديل'
+            confirmButtonText: 'حسناً'
         });
     </script>
     @endif

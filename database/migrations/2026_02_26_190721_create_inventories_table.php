@@ -15,7 +15,11 @@ return new class extends Migration
     $table->id();
     $table->string('item_name');
     $table->string('type')->nullable(); // physical, cash, medical
-    $table->integer('quantity_available')->default(0);
+    $table->integer('quantity_available')->default(0);//الكمية المتاحة حاليا 
+    $table->integer('total_quantity'); // الكمية الكلية
+    $table->string('category');      // التصنيف (أدوات، طعام، مستلزمات طبية)
+    $table->string('storage_location')->nullable(); // مكان الرف أو المستودع
+    $table->enum('condition', ['جديد', 'مستعمل', 'يحتاج صيانة'])->default('جديد');
     $table->timestamps();
 });
 

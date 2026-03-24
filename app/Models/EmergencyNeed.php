@@ -14,4 +14,8 @@ class EmergencyNeed extends Model
     {
         return $this->belongsTo(Family::class);
     }
+    public function reporter()
+    {
+        return $this->belongsTo(User::class, 'reported_by');
+    }
 }

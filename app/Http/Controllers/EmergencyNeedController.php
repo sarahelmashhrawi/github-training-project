@@ -3,63 +3,52 @@
 namespace App\Http\Controllers;
 
 use App\Models\EmergencyNeed;
+use App\Models\Tent;
 use Illuminate\Http\Request;
 
-class EmergencyNeedController
+class EmergencyNeedController 
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    public function index() {
+        $needs = EmergencyNeed::with('tent')->latest()->get();
+        return view('emergency_needs.index', compact('needs'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function create() {
+        $tents = Tent::all(); 
+        return view('emergency_needs.create', compact('tents'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $data = $request->validate([
+            'item_name'     => 'required|string|max:255',
+            'quantity'      => 'required|integer|min:1',
+            'urgency_level' => 'required|in:low,medium,high,critical',
+            'tent_id'       => 'required|exists:tents,id',
+        ]);
+
+        EmergencyNeed::create($data);
+        return redirect()->route('emergency-needs.index')->with('success', 'تم تسجيل الاحتياج بنجاح');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(EmergencyNeed $emergencyNeed)
-    {
-        //
+    public function edit(EmergencyNeed $emergencyNeed) {
+        $tents = Tent::all();
+        return view('emergency_needs.edit', compact('emergencyNeed', 'tents'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(EmergencyNeed $emergencyNeed)
-    {
-        //
+    public function update(Request $request, EmergencyNeed $emergencyNeed) {
+        $data = $request->validate([
+            'item_name'     => 'required|string|max:255',
+            'quantity'      => 'required|integer|min:1',
+            'urgency_level' => 'required|string',
+            'tent_id'       => 'required|exists:tents,id',
+        ]);
+
+        $emergencyNeed->update($data);
+        return redirect()->route('emergency-needs.index')->with('success', 'تم تحديث البيانات');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, EmergencyNeed $emergencyNeed)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(EmergencyNeed $emergencyNeed)
-    {
-        //
+    public function destroy(EmergencyNeed $emergencyNeed) {
+        $emergencyNeed->delete();
+        return redirect()->route('emergency-needs.index')->with('success', 'تم حذف الطلب');
     }
 }
