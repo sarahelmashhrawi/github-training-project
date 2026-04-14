@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-// استدعاء جميع المتحكمات والموديلات
 use App\Http\Controllers\SectorController;
 use App\Http\Controllers\TentController;
 use App\Http\Controllers\FamilyController;
@@ -38,10 +37,8 @@ Route::middleware('auth')->group(function () {
         return view('dashboard', compact('individualsCount', 'tentsCount', 'familiesCount'));
     })->name('dashboard');
 
-    // مسار تسجيل الخروج
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // 🚀 مسارات إدارة المخيم (كلها محمية وجاهزة للاستخدام)
     Route::resource('sectors', SectorController::class);
     Route::resource('tents', TentController::class);
     Route::resource('families', FamilyController::class);
@@ -52,4 +49,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('inventories', InventoryController::class);
     Route::post('/profile/avatar', [UserController::class, 'updateAvatar'])->name('profile.avatar');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    });
+Route::post('/update-avatar', [UserController::class, 'updateAvatar']);
+Route::delete('/delete-avatar', [UserController::class, 'deleteAvatar']);
+Route::get('/individuals/{id}/edit', [IndividualController::class, 'edit'])->name('individuals.edit');  });

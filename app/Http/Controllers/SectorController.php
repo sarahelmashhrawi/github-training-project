@@ -67,9 +67,29 @@ public function update(Request $request, Sector $sector)
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sector $sector)
-    {
-      $sector->delete();
-    return redirect()->route('sectors.index')->with('success', 'تم حذف المنطقة بنجاح');
+  public function destroy(Sector $sector)
+{
+    try {
+        // محاولة حذف المنطقة
+        $deleted = $sector->delete();
+        
+        if ($deleted) {
+            // إرجاع رد بصيغة JSON ليفهمه الجافاسكربت في crud.js
+            return response()->json([
+                'icon' => 'success',
+                'title' => 'تم حذف المنطقة بنجاح'
+            ], 200);
+        } else {
+            return response()->json([
+                'icon' => 'error',
+                'title' => 'فشل الحذف'
+            ], 400);
+        }
+    } catch (\Exception $e) {
+        // التقاط أي خطأ من قاعدة البيانات (مثل وجود بيانات مرتبطة بالمنطقة)
+        return response()->json([
+            'icon' => 'error',
+            'title' => 'لا يمكن حذف المنطقة لوجود بيانات مرتبطة بها'
+        ], 400);
     }
-}
+}}

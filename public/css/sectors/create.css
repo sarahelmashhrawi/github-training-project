@@ -1,0 +1,33 @@
+/* إجبار الحقول على اللون الأسود والخلفية البيضاء */
+.form-control, .form-select { 
+    border-radius: 10px; 
+    border: 1px solid #ddd; 
+    padding: 12px;
+    color: #212529 !important; 
+    background-color: #ffffff !important; 
+}
+
+/* تأثير التحديد (Focus) */
+.form-control:focus, .form-select:focus { 
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.2); /* ظل أخضر يتناسب مع لون الهيدر */
+    border-color: #28a745; 
+}
+
+/* إظهار النص الإرشادي بشكل واضح */
+.form-control::placeholder {
+    color: #6c757d !important; 
+}
+
+/* إجبار كل العناوين (Labels) والنصوص داخل البطاقة لتكون باللون الأسود */
+.card, 
+.card label, 
+.form-label, 
+.card-body {
+    color: #212529 !important;
+}
+
+/* للتأكد 100% أن القوائم المنسدلة (Select) تأخذ اللون الأسود أيضاً */
+select option {
+    color: #212529 !important;
+    background-color: #ffffff !important;
+}

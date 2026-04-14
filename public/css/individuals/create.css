@@ -1,0 +1,66 @@
+/* =========================================
+   تنسيقات صفحة إضافة فرد (Clean Version)
+========================================= */
+
+/* تطبيق الخط العربي */
+body, .container-fluid { 
+    font-family: 'Cairo', sans-serif; 
+}
+
+/* تنسيق البطاقة (إضافة الخط الأخضر العلوي الجميل) */
+.card {
+    border-top: 4px solid #198754 !important;
+}
+
+/* تنسيق العناوين (Labels) */
+.form-label { 
+    font-weight: bold; 
+    color: #495057; 
+    margin-bottom: 8px;
+}
+
+/* =========================================
+   تنسيقات حقول الإدخال والأيقونات
+========================================= */
+.input-group-text { 
+    background-color: #e9ecef; 
+    border: 1px solid #ced4da; 
+    color: #6c757d; 
+    border-radius: 0 8px 8px 0; /* استدارة من اليمين فقط */
+}
+
+.form-control, .form-select { 
+    border-radius: 8px 0 0 8px; /* استدارة من اليسار فقط */
+    border: 1px solid #ced4da; 
+    height: 46px; 
+}
+
+/* مسافات داخلية خاصة للحقول العادية */
+input.form-control { 
+    padding: 10px 15px; 
+}
+
+/* مسافات القائمة المنسدلة (RTL Fix) */
+select.form-select { 
+    padding-right: 15px !important;
+    padding-left: 35px !important;
+    background-position: left 0.75rem center !important;
+}
+
+/* تأثير التركيز (Focus) باللون الأخضر */
+.form-control:focus, .form-select:focus { 
+    border-color: #198754; 
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25); 
+}
+
+/* =========================================
+   حركات وألوان زر الحفظ (Hover Effects)
+========================================= */
+.btn-success {
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 5px 15px rgba(25, 135, 84, 0.3); 
+}

@@ -48,60 +48,49 @@ class TentController extends BaseController
     /**
      * تحديث بيانات الخيمة
      */
-  public function store(Request $request)
+ /**
+     * حفظ الخيمة في قاعدة البيانات
+     */
+    public function store(Request $request)
     {
-        // 1. فحص البيانات (هذا الكود اللي كان ناقص عندك)
         $request->validate([
             'sector_id' => 'required',
-            'tent_number' => [
-                'required',
-                'regex:/^[A-Z]+-[0-9]+$/', // السيستم: حرف ثم شرطة ثم رقم
-                'unique:tents,tent_number'  // يمنع التكرار
-            ],
+            'tent_number' => ['required', 'regex:/^[A-Z]+-[0-9]+$/', 'unique:tents,tent_number'],
             'condition' => 'required',
-            // التعديل هنا: إضافة max:20
             'capacity' => 'required|integer|min:1|max:20' 
         ], [
-            // الرسائل اللي رح تظهر في النافذة المنبثقة
             'tent_number.regex' => 'تنسيق رقم الخيمة خاطئ! (مثال: T-11)',
-            'tent_number.unique' => 'رقم هذه الخيمة مسجل مسبقاً في النظام، الرجاء التأكد!',
-            // التعديل هنا: رسالة التنبيه إذا تجاوز العدد 20
-            'capacity.max' => 'أقصى سعة مسموحة للخيمة هي 20 فرداً فقط!' 
+            'tent_number.unique' => 'رقم هذه الخيمة مسجل مسبقاً!',
+            'capacity.max' => 'أقصى سعة مسموحة هي 20 فرداً!' 
         ]);
 
-        // 2. الحفظ في قاعدة البيانات
         \App\Models\Tent::create($request->all());
 
-        // 3. العودة لصفحة العرض مع رسالة نجاح
-        return redirect()->route('tents.index')->with('success', 'تم إضافة الخيمة بنجاح');
+        // التعديل: إرجاع JSON ليتوافق مع الـ AJAX الخاص بـ crud.js
+        return response()->json(['message' => 'تم إضافة الخيمة بنجاح'], 200);
     }
 
+    /**
+     * تحديث بيانات الخيمة
+     */
     public function update(Request $request, $id)
     {
-        // 1. فحص البيانات والسيستم (مع استثناء الخيمة الحالية من شرط التكرار)
         $request->validate([
             'sector_id' => 'required',
-            'tent_number' => [
-                'required',
-                'regex:/^[A-Z]+-[0-9]+$/', // السيستم: يرفض أي قيمة شاذة (يجب حرف-رقم)
-                'unique:tents,tent_number,' . $id // السر هنا: استثناء الخيمة الحالية من فحص التكرار
-            ],
+            'tent_number' => ['required', 'regex:/^[A-Z]+-[0-9]+$/', 'unique:tents,tent_number,' . $id],
             'condition' => 'required',
-            // التعديل هنا: إضافة max:20
             'capacity' => 'required|integer|min:1|max:20'
         ], [
-            'tent_number.regex' => 'تنسيق رقم الخيمة خاطئ! يجب أن يكون حرف ثم شرطة ثم رقم (مثال: T-11)',
-            'tent_number.unique' => 'رقم هذه الخيمة مسجل مسبقاً لخيمة أخرى، الرجاء التأكد!',
-            // التعديل هنا: رسالة التنبيه إذا تجاوز العدد 20
-            'capacity.max' => 'أقصى سعة مسموحة للخيمة هي 20 فرداً فقط!'
+            'tent_number.regex' => 'تنسيق رقم الخيمة خاطئ!',
+            'tent_number.unique' => 'رقم هذه الخيمة مسجل مسبقاً!',
+            'capacity.max' => 'أقصى سعة مسموحة هي 20 فرداً!'
         ]);
 
-        // 2. جلب الخيمة وتحديثها
         $tent = \App\Models\Tent::findOrFail($id);
         $tent->update($request->all());
 
-        // 3. العودة لصفحة العرض مع رسالة النجاح
-        return redirect()->route('tents.index')->with('success', 'تم تعديل الخيمة بنجاح');
+        // التعديل: إرجاع JSON
+        return response()->json(['message' => 'تم تعديل الخيمة بنجاح'], 200);
     }
 
     /**
@@ -110,7 +99,9 @@ class TentController extends BaseController
     public function destroy(Tent $tent)
     {
         $tent->delete();
-        // هذه الرسالة ستظهر في التنبيه الذي برمجناه في الـ Index
-        return redirect()->route('tents.index')->with('success', 'تم حذف الخيمة بنجاح');
+        
+        // التعديل: إرجاع JSON ليتوافق مع دالة confirmDestroy
+        return response()->json(['message' => 'تم حذف الخيمة بنجاح'], 200);
     }
+
 }

@@ -25,7 +25,7 @@ class Family extends Model
     // علاقة العائلة بالخيمة (عائلة واحدة تتبع لخيمة واحدة)
     public function tent()
     {
-        return $this->belongsTo(Tent::class);
+return $this->belongsTo(Tent::class, 'tent_id');
     }
 
     // علاقة العائلة بالأفراد (عائلة واحدة لها عدة أفراد)

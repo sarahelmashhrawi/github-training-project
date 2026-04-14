@@ -8,11 +8,14 @@ use App\Models\Tent;
 class FamilyController
 {
 
-public function index()
+    /**
+     * عرض كل العائلات
+     */
+    public function index()
     {
-        // نجلب كل العائلات مع بيانات الخيمة المرتبطة بها (لتسريع الأداء)
-        $families = Family::with('tent')->latest()->get();
-        return view('families.index', compact('families'));
+      
+        $families = Family::with('tent')->get(); 
+    return view('families.index', compact('families'));
     }
 
     /**
@@ -26,41 +29,47 @@ public function index()
     }
 
     /**
-     * حفظ العائلة الجديدة في قاعدة البيانات
+     * حفظ العائلة الجديدة في قاعدة البيانات (AJAX)
      */
     public function store(Request $request)
     {
-        // 1. التحقق من صحة البيانات
+        // 1. التحقق من صحة البيانات (تم إضافة تاريخ الميلاد والحالة الاجتماعية)
         $request->validate([
-            'tent_id'       => 'required|exists:tents,id',
-            'head_name'     => 'required|string|max:255',
-            'id_number'     => 'required|digits:9',
-            'phone'         => 'nullable|string|max:20',
-            'original_area' => 'nullable|string|max:255',
-            'current_area'  => 'nullable|string|max:255',
-            'family_type'   => 'required|in:normal,female_headed,orphans',
+            'tent_id'        => 'required|exists:tents,id',
+            'head_name'      => 'required|string|max:255',
+            'id_number'      => 'required|digits:9',
+            'dob'            => 'nullable|date',
+            'marital_status' => 'nullable|string',
+            'phone'          => 'nullable|string|max:20',
+            'original_area'  => 'nullable|string|max:255',
+            'current_area'   => 'nullable|string|max:255',
+            'family_type'    => 'required|in:normal,female_headed,orphans',
         ], [
             'id_number.required' => 'رقم الهوية مطلوب.',
             'id_number.digits'   => 'عذراً، رقم الهوية يجب أن يتكون من 9 أرقام بالضبط.',
             'tent_id.required'   => 'الرجاء اختيار الخيمة التي ستسكن فيها العائلة.',
             'head_name.required' => 'اسم رب/ربة الأسرة مطلوب.',
-        
-            ]);
+        ]);
 
         // 2. حفظ البيانات
         Family::create($request->all());
 
-        // 3. التوجيه لصفحة العرض مع رسالة نجاح
-        return redirect()->route('families.index')->with('success', 'تم تسجيل العائلة بنجاح!');
+        // 3. إرجاع استجابة JSON للـ AJAX
+        return response()->json([
+            'icon'     => 'success',
+            'title'    => 'رائع!',
+            'text'     => 'تم تسجيل العائلة بنجاح!',
+            'redirect' => route('families.index') 
+        ], 200);
     }
 
     /**
-     * عرض تفاصيل عائلة محددة (ممكن نستخدمها لاحقاً لعرض أفراد العائلة)
+     * عرض تفاصيل عائلة محددة
      */
     public function show(Family $family)
     {
         // نجلب أفراد العائلة التابعين لها
-        $individuals = $family->individuals;
+        $individuals = $family->individuals ?? []; // حماية إضافية لو العلاقة مش موجودة
         return view('families.show', compact('family', 'individuals'));
     }
 
@@ -74,20 +83,22 @@ public function index()
     }
 
     /**
-     * تحديث بيانات العائلة في قاعدة البيانات
+     * تحديث بيانات العائلة في قاعدة البيانات (AJAX)
      */
     public function update(Request $request, Family $family)
     {
         // 1. التحقق من صحة البيانات
         $request->validate([
-            'tent_id'       => 'required|exists:tents,id',
-            'head_name'     => 'required|string|max:255',
-            'id_number'     => 'required|digits:9',
-            'phone'         => 'nullable|string|max:20',
-            'original_area' => 'nullable|string|max:255',
-            'current_area'  => 'nullable|string|max:255',
-            'family_type'   => 'required|in:normal,female_headed,orphans',
-        ],[
+            'tent_id'        => 'required|exists:tents,id',
+            'head_name'      => 'required|string|max:255',
+            'id_number'      => 'required|digits:9',
+            'dob'            => 'nullable|date',
+            'marital_status' => 'nullable|string',
+            'phone'          => 'nullable|string|max:20',
+            'original_area'  => 'nullable|string|max:255',
+            'current_area'   => 'nullable|string|max:255',
+            'family_type'    => 'required|in:normal,female_headed,orphans',
+        ], [
             'id_number.required' => 'رقم الهوية مطلوب.',
             'id_number.digits'   => 'عذراً، رقم الهوية يجب أن يتكون من 9 أرقام بالضبط.', 
         ]);
@@ -95,17 +106,27 @@ public function index()
         // 2. تحديث البيانات
         $family->update($request->all());
 
-        // 3. التوجيه
-        return redirect()->route('families.index')->with('success', 'تم تعديل بيانات العائلة بنجاح!');
+        // 3. إرجاع استجابة JSON للـ AJAX بدل الـ Redirect
+        return response()->json([
+            'icon'     => 'success',
+            'title'    => 'تم التعديل!',
+            'text'     => 'تم تعديل بيانات العائلة بنجاح!',
+            'redirect' => route('families.index')
+        ], 200);
     }
 
     /**
-     * حذف العائلة من قاعدة البيانات
+     * حذف العائلة من قاعدة البيانات (AJAX)
      */
     public function destroy(Family $family)
     {
         $family->delete();
-        return redirect()->route('families.index')->with('success', 'تم حذف العائلة بنجاح!');
+        
+        // إرجاع استجابة JSON لزر الحذف اللي بيستخدم AJAX
+        return response()->json([
+            'icon'  => 'success',
+            'title' => 'تم الحذف!',
+            'text'  => 'تم حذف العائلة بنجاح!'
+        ], 200);
     }
 }
-

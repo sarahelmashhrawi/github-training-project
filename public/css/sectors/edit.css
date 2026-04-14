@@ -1,0 +1,58 @@
+body { 
+    font-family: 'Cairo', sans-serif; 
+    background-color: #f8f9fa; 
+}
+
+.card { 
+    border: none; 
+    border-radius: 20px; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+    overflow: hidden; 
+}
+
+.card-header { 
+    border: none; 
+    padding: 20px; 
+    background: linear-gradient(45deg, #ffc107, #ff9800); 
+}
+
+/* الكود المُعدل لضمان اللون الأسود في الحقول */
+.form-control, .form-select { 
+    border-radius: 10px; 
+    border: 1px solid #ddd; 
+    padding: 12px;
+    color: #212529 !important; 
+    background-color: #ffffff !important; 
+}
+
+.form-control:focus, .form-select:focus { 
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.2); 
+    border-color: #ffc107; 
+}
+
+.btn-update { 
+    background: #ffc107; 
+    border: none; 
+    border-radius: 10px; 
+    padding: 10px 30px; 
+    font-weight: bold; 
+    color: #222; 
+}
+
+.btn-update:hover { 
+    background: #e0a800; 
+}
+
+/* إجبار كل العناوين (Labels) والنصوص داخل البطاقة لتكون باللون الأسود */
+.card, 
+.card label, 
+.form-label, 
+.card-body {
+    color: #212529 !important;
+}
+
+/* للتأكد 100% أن القوائم المنسدلة (Select) تأخذ اللون الأسود أيضاً */
+select option {
+    color: #212529 !important;
+    background-color: #ffffff !important;
+}

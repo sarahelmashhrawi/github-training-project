@@ -50,7 +50,7 @@ class DashboardController extends BaseController
         $eldersCount = $eldersIndividuals + $eldersHeads;
 
         // إرجاع البيانات للملف
-        return view('dashboard', compact(
+        return view('index', compact(
             'individualsCount', 'tentsCount', 'familiesCount', 
             'childrenCount', 'youthCount', 'womenCount', 'eldersCount'
         ));

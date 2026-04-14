@@ -24,5 +24,11 @@ User::create([
     'email' => 'hind@admin.com',
     'password' => Hash::make('12345678'), // ضروري جداً استخدام Hash::make
 ]);
+    
+    User::create([
+    'name' => 'Sara AL_mashharawi',
+    'email' => 'sara@admin.com',
+    'password' => Hash::make('12345678'), 
+]);
     }
 }

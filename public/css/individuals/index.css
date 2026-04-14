@@ -1,0 +1,100 @@
+/* =========================================
+   تنسيقات جدول سجل النازحين 
+========================================= */
+
+/* تنسيق رأس الجدول */
+.custom-table th { 
+    background-color: #0d6efd; 
+    color: white; 
+    padding: 15px; 
+    text-align: right; 
+    white-space: nowrap; 
+    border-bottom: none;
+}
+
+.custom-table td { 
+    padding: 15px; 
+    font-size: 14px; 
+}
+
+/* تمييز صف رب الأسرة */
+/* تمييز صف رب الأسرة بخلفية فقط بدون خطوط عمودية بين الخلايا */
+.head-row td { 
+    background-color: #e7f1ff !important; 
+    border: none; /* إزالة الخطوط بالكامل */
+}
+
+/* (اختياري) إذا أردتِ إبقاء الخط الأزرق كعلامة مميزة في بداية الصف فقط، أضيفي هذا: */
+.head-row td:first-child {
+    border-right: 4px solid #0d6efd !important;
+}
+
+/* =========================================
+   البادجات (الحالات)
+========================================= */
+.badge { padding: 6px 12px; font-weight: bold; font-size: 12px; }
+.badge-health { background-color: #fee2e2; color: #b91c1c; } /* أحمر للحالة الصحية */
+.badge-chronic { background-color: #ffedd5; color: #9a3412; } /* برتقالي للأمراض المزمنة */
+.badge-social { background-color: #dbeafe; color: #1e40af; } /* أزرق للحالة الاجتماعية */
+.badge-safe { background-color: #dcfce7; color: #15803d; } /* أخضر للسليم */
+.badge-pregnant { background-color: #fce4ec; color: #ad1457; } /* زهري للحامل */
+.badge-breastfeeding { background-color: #f3e5f5; color: #7b1fa2; } /* بنفسجي للمرضع */
+
+/* =========================================
+   زر التفاصيل الحديث
+========================================= */
+.btn-details { 
+    background-color: #eef2ff; 
+    color: #4338ca; 
+    border: none; 
+    font-weight: bold;
+    transition: all 0.3s ease; 
+}
+
+.btn-details:hover { 
+    background-color: #4338ca; 
+    color: white; 
+}
+
+/* =========================================
+   النافذة المنبثقة (Modal)
+========================================= */
+.custom-modal-overlay { 
+    display: none; 
+    position: fixed; 
+    z-index: 1050; 
+    left: 0; top: 0; 
+    width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.5); 
+    backdrop-filter: blur(2px); /* إضافة غباش خفيف للخلفية */
+}
+
+.custom-modal-box { 
+    background: white; 
+    margin: 10% auto; 
+    padding: 30px; 
+    border-radius: 15px; 
+    width: 90%; 
+    max-width: 500px; /* ليناسب الجوال والشاشات الكبيرة */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+    position: relative; 
+    animation: fadeIn 0.3s;
+}
+
+.close-custom-modal { 
+    position: absolute; 
+    left: 20px; 
+    top: 15px; 
+    font-size: 28px; 
+    cursor: pointer; 
+    color: #6c757d; 
+    transition: 0.2s;
+}
+
+.close-custom-modal:hover { color: #dc3545; }
+
+/* حركة ظهور خفيفة للـ Modal */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
