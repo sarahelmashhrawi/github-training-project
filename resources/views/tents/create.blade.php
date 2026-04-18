@@ -3,21 +3,7 @@
 @section('title', 'إضافة خيمة جديدة')
 
 @section('styles')
-<style>
-    .custom-card { border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 4px solid #198754; }
-    .form-label { font-weight: bold; color: #333; margin-bottom: 8px; }
-    
-    .form-control, .form-select { 
-        height: 48px; 
-        border-radius: 10px !important; 
-        border: 1px solid #ced4da; 
-    }
-    
-    .input-group-text { border-radius: 10px 0 0 10px !important; background: #f8f9fa; }
-    .input-group .form-control { border-radius: 0 10px 10px 0 !important; }
-    
-    .btn-save { background-color: #198754; color: white; padding: 12px; border-radius: 10px; font-weight: bold; width: 100%; border: none; }
-    .btn-save:hover { background-color: #157347; color: white; }
+    <link rel="stylesheet" href="{{ asset('css/tents/create.css') }}">
 </style>
 @endsection
 @section('content')
@@ -27,7 +13,6 @@
             <div class="card custom-card p-4">
                 <h3 class="mb-4 text-success fw-bold"><i class="fas fa-tent me-2"></i> إضافة خيمة جديدة</h3>
                 
-                {{-- تم تعديل الـ onsubmit لاستدعاء دالة performStore الموجودة في ملف الـ crud الخاص بك --}}
                 <form id="create-form">
                     @csrf
                     <div class="row">
@@ -38,7 +23,7 @@
                                 <select name="sector_id" class="form-control" required>
                                     <option value="">-- اختر المنطقة --</option>
                                     @foreach($sectors as $sector)
-                                        <option value="{{ $sector->id }}">{{ $sector->name }}</option>
+                                        <option value="{{ $sector->id }}">{{ $sector->name }} - {{ $sector->description }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -67,12 +52,15 @@
                                 <select name="condition" class="form-control" required>
                                     <option value="good">ممتازة</option>
                                     <option value="worn">مهترئة</option>
+                                    <option value="worn">تحتاج شادر</option>
+                                    <option value="worn">غارقة </option>
+
+
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    {{-- الزر الآن يستدعي دالة JavaScript مباشرة --}}
                     <button type="button" onclick="sendData()" class="btn btn-save">
                         <i class="fas fa-save me-1"></i> حفظ بيانات الخيمة
                     </button>

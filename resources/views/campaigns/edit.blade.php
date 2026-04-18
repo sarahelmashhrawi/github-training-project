@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>تعديل بيانات المساعدة</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.css">
+@extends('cms.parent')
+
+@section('title', 'تعديل بيانات المساعدة')
+
+@section('styles')
     <style>
-        body { background-color: #f4f6f9; font-family: 'Tajawal', sans-serif; }
         .main-card {
             background-color: #ffffff;
             border-radius: 15px;
             padding: 0px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-top: 50px;
             border: none;
             overflow: hidden;
         }
@@ -59,70 +52,85 @@
             font-weight: 500;
         }
     </style>
-</head>
-<body>
-    <div class="container main-card shadow-sm">
-        <div class="form-header shadow-sm">
-            <h4><i class="fas fa-edit me-2"></i>تعديل المساعدة: {{ $campaign->title ?? 'بدون عنوان' }}</h4>
-            <a href="{{ route('campaigns.index') }}" class="btn btn-light btn-sm btn-recede px-3">تراجع</a>
-        </div>
+@endsection
 
-        <div class="form-body">
-            @if ($errors->any())
-                <div class="alert alert-danger mb-4 rounded-3">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+@section('content')
+    <div class="container mt-4">
+        <div class="main-card shadow-sm">
+            <div class="form-header shadow-sm">
+                <h4><i class="fas fa-edit me-2"></i>تعديل المساعدة: {{ $campaign->title ?? 'بدون عنوان' }}</h4>
+                <a href="{{ route('campaigns.index') }}" class="btn btn-light btn-sm btn-recede px-3">تراجع</a>
+            </div>
 
-            <form action="{{ route('campaigns.update', $campaign->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="row">
-                    <div class="col-md-6 mb-4">
-                        <label class="form-label">نوع المساعدة (مثال: طرود، بطانيات)</label>
-                        <input type="text" name="title" class="form-control" value="{{ old('title', $campaign->title) }}" required>
+            <div class="form-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger mb-4 rounded-3">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
-                    <div class="col-md-6 mb-4">
-                        <label class="form-label">المنطقة / القطاع</label>
-                        <input type="text" name="location" class="form-control" value="{{ old('location', $campaign->location) }}" required>
+                @endif
+
+                <form action="{{ route('campaigns.update', $campaign->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">نوع المساعدة (مثال: طرود، بطانيات)</label>
+                            <input type="text" name="title" class="form-control" value="{{ old('title', $campaign->title) }}" required>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">المنطقة / القطاع</label>
+                            <input type="text" name="location" class="form-control" value="{{ old('location', $campaign->location) }}" required>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">عدد العائلات المستفيدة</label>
+                            <input type="number" name="target_families" class="form-control" value="{{ old('target_families', $campaign->target_families) }}" required>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">الكمية المتاحة للتوزيع</label>
+                            <input type="number" name="total_capacity" value="{{ old('total_capacity', $campaign->total_capacity) }}" class="form-control" required>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">تاريخ البدء</label>
+                            <input type="date" name="start_date" class="form-control" value="{{ old('start_date', $campaign->start_date) }}" required>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">تاريخ الانتهاء</label>
+                            <input type="date" name="end_date" class="form-control" value="{{ old('end_date', $campaign->end_date) }}">
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">حالة التوزيع</label>
+                            <select name="status" class="form-control">
+                                <option value="" disabled>اختر الحالة</option>
+                                <option value="available" {{ (isset($campaign) && $campaign->status == 'available') ? 'selected' : '' }}>متاح</option>
+                                <option value="full" {{ (isset($campaign) && $campaign->status == 'full') ? 'selected' : '' }}>ممتلئ</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-12 mb-4">
+                            <label class="form-label">تفاصيل المساعدة / ملاحظات</label>
+                            <textarea name="description" class="form-control" rows="4">{{ old('description', $campaign->description) }}</textarea>
+                        </div>
                     </div>
-                    <div class="col-md-6 mb-4">
-                        <label class="form-label">عدد العائلات المستفيدة</label>
-                        <input type="number" name="target_families" class="form-control" value="{{ old('target_families', $campaign->target_families) }}" required>
+                    
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-update px-5">تحديث البيانات</button>
                     </div>
-                    <div class="col-md-6 mb-4">
-                        <label class="form-label">الكمية المتاحة للتوزيع</label>
-                        <input type="number" name="total_capacity" value="{{ old('total_capacity', $campaign->total_capacity) }}" class="form-control" required>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        <label class="form-label">تاريخ البدء</label>
-                        <input type="date" name="start_date" class="form-control" value="{{ old('start_date', $campaign->start_date) }}" required>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        <label class="form-label">تاريخ الانتهاء</label>
-<input type="date" name="end_date" class="form-control" value="{{ old('end_date', $campaign->end_date) }}">                    </div>
-                    <div class="col-md-6 mb-4">
-                        <label class="form-label">حالة التوزيع</label>
-                        <select name="status" class="form-control">
-    <option value="" disabled selected>اختر الحالة</option>
-    <option value="available" {{ (isset($campaign) && $campaign->status == 'available') ? 'selected' : '' }}>متاح</option>
-    <option value="full" {{ (isset($campaign) && $campaign->status == 'full') ? 'selected' : '' }}>ممتلئ</option>
-</select>
-                    </div>
-                    <div class="col-md-12 mb-4">
-                        <label class="form-label">تفاصيل المساعدة / ملاحظات</label>
-                        <textarea name="description" class="form-control" rows="4">{{ old('description', $campaign->description) }}</textarea>
-                    </div>
-                </div>
-                <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-update px-5">تحديث البيانات</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</body>
-</html>
+@endsection
+
+@section('scripts')
+@endsection

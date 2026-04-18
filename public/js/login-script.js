@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnSpinner = document.getElementById('btnSpinner');
 
     loginForm.addEventListener('submit', function() {
-        // لما يتم إرسال الفورم، بنغير حالة الزر
+        //  إرسال الفورم، بنغير حالة الزر
         submitBtn.classList.add('loading');
         
         // إخفاء النص العادي وإظهار دائرة التحميل

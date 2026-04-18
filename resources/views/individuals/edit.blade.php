@@ -1,7 +1,8 @@
 @extends('cms.parent')
 
 @section('title', 'تعديل بيانات الفرد')
-
+@section('styles')
+@endsection
 @section('content')
 <div class="container-fluid mt-4">
     <div class="mb-4 d-flex justify-content-between">
@@ -64,11 +65,14 @@
                 </div>
 
 <<div class="form-group col-md-6">
-    <div class="form-check" style="display: flex !important; align-items: center !important; gap: 10px !important; padding-left: 0 !important; margin-bottom: 10px;">
+    <div class="form-check" 
+    style="display: flex !important; align-items: center !important; gap: 10px !important; padding-left: 0 !important; margin-bottom: 10px;">
         <input type="checkbox" class="form-check-input" id="has_disability" name="has_disability" value="1" {{ $individual->has_disability ? 'checked' : '' }} onchange="document.getElementById('disability_section').style.display = this.checked ? 'block' : 'none';" style="position: static !important; margin: 0 !important;">
-        <label class="form-check-label" for="has_disability" style="margin: 0 !important; cursor: pointer; font-weight: bold;">هل يعاني الفرد من أي إعاقات؟</label>
+        <label class="form-check-label" for="has_disability" style="margin: 0 !important; cursor: pointer; font-weight: bold;" > هل يعاني الفرد من أي إعاقات؟</label>
     </div>
-    <div id="disability_section" class="mt-2 p-2 border rounded bg-light" style="display: {{ $individual->has_disability ? 'block' : 'none' }};">
+    <div id="disability_section" 
+    class="mt-2 p-2 border rounded bg-light"
+     style="display: {{ $individual->has_disability ? 'block' : 'none' }};">
         <label class="form-label font-weight-bold text-primary small">نوع الإعاقة:</label>
         <select name="disability_type" class="form-select">
             <option value="" disabled {{ !$individual->disability_type ? 'selected' : '' }}>اختر نوع الإعاقة...</option>

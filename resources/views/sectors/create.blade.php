@@ -3,23 +3,24 @@
 @section('title', 'إضافة منطقة جديدة')
 
 @section('styles')
+    {{-- تفعيل رابط الـ CSS وتمرير الوقت لمنع الكاش --}}
     <link rel="stylesheet" href="{{ asset('css/sectors/create.css') }}?v={{ time() }}">
 @endsection
 
 @section('content')
-<div class="container-fluid mt-4">
-    <div class="card shadow-sm border-0">
-        <div class="card-header bg-success text-white py-3">
-            <h3 class="card-title mb-0 fw-bold"><i class="fas fa-map-marked-alt me-2"></i> إضافة منطقة جديدة</h3>
+<div class="container-fluid">
+    <div class="card sector-card">
+        <div class="sector-header">
+            <h3><i class="fas fa-map-marked-alt me-2"></i> إضافة منطقة جديدة</h3>
         </div>
         
-        <div class="card-body p-4 text-dark">
+        <div class="card-body p-4">
             <form id="create-form">
                 @csrf
                 
-                <div class="mb-3 text-start">
-                    <label class="form-label fw-bold text-dark">اسم المحافظة/المنطقة</label>
-                    <select id="name" class="form-select shadow-sm text-dark bg-white" required>
+                <div class="mb-4 text-align-start">
+                    <label class="form-label-custom">اسم المحافظة/المنطقة</label>
+                    <select id="name" class="form-select custom-input" required>
                         <option value="" disabled selected>-- اختر المنطقة --</option>
                         <option value="محافظة شمال غزة">محافظة شمال غزة</option>
                         <option value="محافظة غزة">محافظة غزة</option>
@@ -29,14 +30,14 @@
                     </select>
                 </div>
 
-                <div class="mb-3 text-start">
-                    <label class="form-label fw-bold text-dark">العنوان أو الوصف</label>
-                    <textarea id="description" class="form-control shadow-sm text-dark bg-white" rows="3" placeholder="اكتب العنوان بالتفصيل أو أقرب معلم"></textarea>
+                <div class="mb-4 text-align-start">
+                    <label class="form-label-custom">العنوان أو الوصف</label>
+                    <textarea id="description" class="form-control custom-input" rows="3" placeholder="اكتب العنوان بالتفصيل أو أقرب معلم"></textarea>
                 </div>
 
-                <div class="mb-3 text-start">
-                    <label class="form-label fw-bold text-dark">المشرف المسؤول</label>
-                    <select id="supervisor_id" class="form-select shadow-sm text-dark bg-white">
+                <div class="mb-4 text-align-start">
+                    <label class="form-label-custom">المشرف المسؤول</label>
+                    <select id="supervisor_id" class="form-select custom-input">
                         <option value="">-- اختر مشرفاً من القائمة --</option>
                         @foreach($users as $user)
                             <option value="{{ $user->id }}">{{ $user->name }} - ({{ $user->phone ?? 'لا يوجد رقم' }})</option>
@@ -44,11 +45,11 @@
                     </select>
                 </div>
 
-                <div class="mt-4 text-start">
-                    <button type="button" onclick="storeSector()" class="btn btn-success px-4">
+                <div class="mt-5 text-align-start">
+                    <button type="button" onclick="storeSector()" class="btn btn-success px-5 rounded-pill shadow-sm">
                         <i class="fas fa-save me-1"></i> حفظ البيانات
                     </button>
-                    <a href="{{ route('sectors.index') }}" class="btn btn-outline-secondary px-4">إلغاء</a>
+                    <a href="{{ route('sectors.index') }}" class="btn btn-outline-secondary px-4 rounded-pill">إلغاء</a>
                 </div>
             </form>
         </div>
@@ -60,13 +61,11 @@
 <script>
     function storeSector() {
         let formData = new FormData(); 
-        
         formData.append('name', document.getElementById('name').value);
         formData.append('description', document.getElementById('description').value);
         formData.append('supervisor_id', document.getElementById('supervisor_id').value);
 
         let url = "{{ route('sectors.store') }}"; 
-        
         performStore(url, formData); 
     }
 </script>

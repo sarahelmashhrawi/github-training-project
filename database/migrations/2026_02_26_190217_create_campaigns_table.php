@@ -13,15 +13,15 @@ return new class extends Migration
 {
     Schema::create('campaigns', function (Blueprint $table) {
         $table->id();
-        $table->string('title'); // عنوان الحملة
-        $table->string('location'); // مكان التنفيذ
-        $table->integer('target_families')->default(0); // الهدف: كم عائلة بدنا نأوي؟
-        $table->integer('total_capacity')->default(0); // سعة الخيم المتاحة
-        $table->date('start_date'); // تاريخ البدء
-        $table->date('end_date')->nullable(); // تاريخ الانتهاء
+        $table->string('title'); 
+        $table->string('location'); 
+        $table->integer('target_families')->default(0); 
+        $table->integer('total_capacity')->default(0); 
+        $table->date('start_date'); 
+        $table->date('end_date')->nullable(); 
         $table->enum('status', ['available', 'full'])->default('available'); 
         
-        $table->text('description')->nullable(); // وصف للمتبرع
+        $table->text('description')->nullable(); 
         $table->timestamps();
     });
 }

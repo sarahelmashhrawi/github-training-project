@@ -135,49 +135,51 @@
               <p style="margin: 0;">لوحة التحكم </p>
             </a>
           </li>
-          <li class="nav-header">إدارة المستحدمين</li>
-          <li class="nav-item mt-1">
-            <a href="#" class="nav-link d-flex align-items-center">
-              <i class="nav-icon fas fa-edit" style="margin-left: 10px; margin-right: 0;"></i>
-              <p style="margin: 0; width: 100%; display: flex; justify-content: space-between; align-items: center;">
-                <span>الاعدادات</span>
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('families.create') }}" class="nav-link d-flex align-items-center" style="padding-right: 25px;">
-                  <i class="far fa-circle nav-icon text-warning" style="margin-left: 10px; font-size: 14px;"></i>
-                  <p>تعديل كلمة المرور</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('tents.create') }}" class="nav-link d-flex align-items-center" style="padding-right: 25px;">
-                  <i class="far fa-circle nav-icon text-success" style="margin-left: 10px; font-size: 14px;"></i>
-                  <p>تعديل الملف الشخصي</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('sectors.create') }}" class="nav-link d-flex align-items-center" style="padding-right: 25px;">
-                  <i class="far fa-circle nav-icon text-info" style="margin-left: 10px; font-size: 14px;"></i>
-                  <p>خروج</p>
-                </a>
-              </li>
-            </ul>
+      <li class="nav-header">إدارة المستخدمين</li> 
 
-          <li class="nav-item mt-1">
-            <a href="{{ route('individuals.index') }}" class="nav-link d-flex align-items-center">
-              <i class="nav-icon fas fa-walking" style="margin-left: 10px; margin-right: 0;"></i>
-              <p style="margin: 0;">إدارة النازحين</p>
-            </a>
-          </li>
-          
-          <li class="nav-item mt-1">
-            <a href="{{ route('sectors.index') }}" class="nav-link d-flex align-items-center">
-              <i class="nav-icon fas fa-walking" style="margin-left: 10px; margin-right: 0;"></i>
-              <p style="margin: 0;">إدارة المناطق</p>
-            </a>
-          </li>
+<li class="nav-item mt-1">
+  <a href="#" class="nav-link d-flex align-items-center">
+    <i class="nav-icon fas fa-user-cog" style="margin-left: 10px; margin-right: 0;"></i>
+    <p style="margin: 0; width: 100%; display: flex; justify-content: space-between; align-items: center;">
+      <span>إعدادات المستخدم</span>
+      <i class="fas fa-angle-left right"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{ route('families.create') }}" class="nav-link d-flex align-items-center" style="padding-right: 25px;">
+        <i class="fas fa-key nav-icon text-warning" style="margin-left: 10px; font-size: 14px;"></i>
+        <p>تعديل كلمة المرور</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ route('tents.create') }}" class="nav-link d-flex align-items-center" style="padding-right: 25px;">
+        <i class="fas fa-user-edit nav-icon text-success" style="margin-left: 10px; font-size: 14px;"></i>
+        <p>تعديل الملف الشخصي</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ route('sectors.create') }}" class="nav-link d-flex align-items-center" style="padding-right: 25px;">
+        <i class="fas fa-sign-out-alt nav-icon text-danger" style="margin-left: 10px; font-size: 14px;"></i>
+        <p>خروج</p>
+      </a>
+    </li>
+  </ul>
+</li>
+
+<li class="nav-item mt-1">
+  <a href="{{ route('individuals.index') }}" class="nav-link d-flex align-items-center">
+    <i class="nav-icon fas fa-users" style="margin-left: 10px; margin-right: 0;"></i>
+    <p style="margin: 0;">إدارة النازحين</p>
+  </a>
+</li>
+
+<li class="nav-item mt-1">
+  <a href="{{ route('sectors.index') }}" class="nav-link d-flex align-items-center">
+    <i class="nav-icon fas fa-map-marked-alt" style="margin-left: 10px; margin-right: 0;"></i>
+    <p style="margin: 0;">إدارة المناطق</p>
+  </a>
+</li>
 
           <li class="nav-item mt-1">
             <a href="{{ route('tents.index') }}" class="nav-link d-flex align-items-center">
@@ -194,7 +196,7 @@
           </li>
 
           <li class="nav-item mt-1">
-            <a href="#" class="nav-link d-flex align-items-center">
+            <a href="{{ route('campaigns.index') }}"class="nav-link d-flex align-items-center">
               <i class="nav-icon fas fa-hands-helping" style="margin-left: 10px; margin-right: 0;"></i>
               <p style="margin: 0;">إدارة مساعدات الخيام</p>
             </a>
@@ -204,7 +206,6 @@
 
         
 
-          {{-- بداية تعديل قسم النماذج ليصبح قائمة منسدلة --}}
           <li class="nav-item mt-1">
             <a href="#" class="nav-link d-flex align-items-center">
               <i class="nav-icon fas fa-edit" style="margin-left: 10px; margin-right: 0;"></i>
@@ -234,7 +235,6 @@
               </li>
             </ul>
           </li>
-          {{-- نهاية تعديل قسم النماذج --}}
 
           <li class="nav-item mt-1">
             <a href="#" class="nav-link d-flex align-items-center">
@@ -250,7 +250,7 @@
 
           {{-- التقويم --}}
           <li class="nav-item mt-1">
-            <a href="#calendar-widget" class="nav-link d-flex align-items-center">
+            <a href="cms/Calendar" class="nav-link d-flex align-items-center">
               <i class="nav-icon far fa-calendar-alt" style="margin-left: 10px; margin-right: 0;"></i>
               <p style="margin: 0; width: 100%; display: flex; justify-content: space-between; align-items: center;">
                 <span>التقويم</span>
@@ -261,7 +261,7 @@
 
           {{-- معرض الصور --}}
           <li class="nav-item mt-1 mb-3">
-            <a href="#" class="nav-link d-flex align-items-center">
+            <a href="cms/gallery" class="nav-link d-flex align-items-center">
               <i class="nav-icon far fa-image" style="margin-left: 10px; margin-right: 0;"></i>
               <p style="margin: 0;">معرض الصور</p>
             </a>

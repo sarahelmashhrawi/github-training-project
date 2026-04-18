@@ -1,6 +1,6 @@
 @extends('cms.parent')
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/families.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/families/families.css') }}">
     
 @endsection
 

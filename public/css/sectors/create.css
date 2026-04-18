@@ -1,33 +1,49 @@
-/* إجبار الحقول على اللون الأسود والخلفية البيضاء */
-.form-control, .form-select { 
-    border-radius: 10px; 
-    border: 1px solid #ddd; 
-    padding: 12px;
-    color: #212529 !important; 
-    background-color: #ffffff !important; 
+/* public/css/sectors/create.css */
+
+/* تنسيق الكاريد الرئيسي */
+.sector-card {
+    border: none !important;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-top: 1.5rem;
+    overflow: hidden;
 }
 
-/* تأثير التحديد (Focus) */
-.form-control:focus, .form-select:focus { 
-    box-shadow: 0 0 10px rgba(40, 167, 69, 0.2); /* ظل أخضر يتناسب مع لون الهيدر */
-    border-color: #28a745; 
+/* رأس البطاقة */
+.sector-header {
+    background-color: #198754; /* لون النجاح الأخضر */
+    color: #ffffff;
+    padding: 1.5rem;
 }
 
-/* إظهار النص الإرشادي بشكل واضح */
-.form-control::placeholder {
-    color: #6c757d !important; 
+.sector-header h3 {
+    font-weight: 700;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
 }
 
-/* إجبار كل العناوين (Labels) والنصوص داخل البطاقة لتكون باللون الأسود */
-.card, 
-.card label, 
-.form-label, 
-.card-body {
-    color: #212529 !important;
+/* التنسيقات الخاصة بالفورم */
+.form-label-custom {
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 0.5rem;
 }
 
-/* للتأكد 100% أن القوائم المنسدلة (Select) تأخذ اللون الأسود أيضاً */
-select option {
-    color: #212529 !important;
+.custom-input {
     background-color: #ffffff !important;
+    color: #212529 !important;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    transition: all 0.3s ease;
+}
+
+.custom-input:focus {
+    box-shadow: 0 0 10px rgba(25, 135, 84, 0.15) !important;
+    border-color: #198754 !important;
+}
+
+/* المحاذاة */
+.text-align-start {
+    text-align: start;
 }

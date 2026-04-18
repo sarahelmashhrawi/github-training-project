@@ -35,8 +35,7 @@ class CampaignController
     'target_families' => 'required|integer',
     'total_capacity'  => 'required|integer',
     'start_date'      => 'required|date',
-    'status'          => 'required|in:0,1', // 1 لمتاح و 0 لممتلئ
-    'description'     => 'nullable|string',
+    'status' => 'required', 
     'end_date' => 'nullable|date',
 ]);
     \App\Models\Campaign::create($data);

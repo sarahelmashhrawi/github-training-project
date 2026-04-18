@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sector;
+use App\Models\User;
+
 use Illuminate\Http\Request;
 
 class SectorController
@@ -10,13 +12,11 @@ class SectorController
     /**
      * Display a listing of the resource.
      */
-    
-       public function index()
+    public function index()
     {
-  
-        $sectors = \App\Models\Sector::all();
+        $sectors = Sector::orderBy('id', 'desc')->withoutTrashed()->simplePaginate(10);
         
-        return view('sectors.index', compact('sectors'));
+        return response()->view('sectors.index', compact('sectors'));
     }
     
 
@@ -25,7 +25,7 @@ class SectorController
      */
    public function create()
 {
-    $users = \App\Models\User::where('role', 'sector_supervisor')->get(); 
+    $users = User::where('role', 'sector_supervisor')->get(); 
         
     return view('sectors.create', compact('users'));
 }
@@ -36,7 +36,7 @@ class SectorController
     
 public function store(Request $request) {
     $request->validate(['name' => 'required']);
-    \App\Models\Sector::create($request->all());
+    Sector::create($request->all());
     return redirect()->route('sectors.index')->with('success', 'تمت الإضافة!');
 }
     /**
@@ -53,7 +53,7 @@ public function store(Request $request) {
 
 public function edit(Sector $sector)
 {
-             $users = \App\Models\User::where('role', 'sector_supervisor')->get();
+             $users = User::where('role', 'sector_supervisor')->get();
              return view('sectors.edit', compact('sector', 'users'));
 }
 
@@ -74,7 +74,6 @@ public function update(Request $request, Sector $sector)
         $deleted = $sector->delete();
         
         if ($deleted) {
-            // إرجاع رد بصيغة JSON ليفهمه الجافاسكربت في crud.js
             return response()->json([
                 'icon' => 'success',
                 'title' => 'تم حذف المنطقة بنجاح'
@@ -92,4 +91,22 @@ public function update(Request $request, Sector $sector)
             'title' => 'لا يمكن حذف المنطقة لوجود بيانات مرتبطة بها'
         ], 400);
     }
-}}
+}
+
+    public function trashed()
+    {
+        $sectors = \App\Models\Sector::onlyTrashed()->orderBy('id', 'desc')->simplePaginate(10);
+        
+        return response()->view('sectors.trashed', compact('sectors'));
+    }
+
+  
+    public function restore($id)
+    {
+        $sector = Sector::withTrashed()->findOrFail($id);
+        
+        $sector->restore();
+        
+        return back()->with('success', 'تم استرجاع المنطقة بنجاح');
+    }
+}

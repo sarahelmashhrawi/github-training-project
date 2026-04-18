@@ -3,22 +3,6 @@
 @section('title', 'إدارة الخيام')
 
 @section('styles')
-<style>
-    /* ضمان ظهور النصوص باللون الداكن */
-    body { color: #333 !important; }
-    .card { border: none; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); background: #fff; }
-    
-    /* تنسيق الجدول */
-    .table { color: #333 !important; }
-    .table thead { background-color: #f8f9fa; }
-    
-    /* تحسين ظهور الأيقونات */
-    .btn-outline-warning { color: #ffc107; border-color: #ffc107; }
-    .btn-outline-danger { color: #dc3545; border-color: #dc3545; }
-    
-    /* تنسيق السيرش */
-    .search-box input { border: 1px solid #ddd; height: 45px; border-radius: 25px; padding-right: 40px; }
-</style>
 @endsection
 
 @section('content')

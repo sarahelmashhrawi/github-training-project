@@ -3,7 +3,7 @@
 @section('title', 'إدارة العائلات')
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/families/families.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/families.css') }}">
 
 @endsection
 
@@ -14,22 +14,14 @@
             <h3 class="fw-bold m-0"><i class="fas fa-users text-primary me-2"></i> إدارة العائلات</h3>
             <div class="d-flex align-items-center gap-3">
                 <div class="search-box">
-                    
                     <i class="fa fa-search"></i>
                     <input type="text" id="familySearch" placeholder="بحث عن عائلة...">
                 </div>
                 <a href="{{ route('families.create') }}" class="btn btn-primary btn-add fw-bold text-white px-4 py-2">
                     <i class="fas fa-plus-circle me-1"></i> تسجيل عائلة
                 </a>
-                
             </div>
         </div>
-         <div>
-                     <a href="{{ route('dashboard') }}" class="btn btn-primary px-4 rounded shadow-sm">
-            <i class="fa-solid fa-arrow-right mr-1"></i> العودة للوحة التحكم
-        </a> 
-        </div>
-       
 
         <div class="table-responsive">
             <table id="familiesTable" class="table table-hover align-middle">

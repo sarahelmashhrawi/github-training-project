@@ -1,17 +1,19 @@
 @extends('cms.parent')
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/families.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/families/families.css') }}">
 @endsection
 
 @section('content')
 <div class="container-fluid mt-4 mb-5">
     <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-8">
-            <div class="card custom-card">
+<div class="col-12 col-lg-10">            
+    <div class="card custom-card">
                 <div class="card-header custom-card-header text-center">
                     <h3 class="mb-0 font-weight-bold"><i class="fas fa-users mr-2"></i> تسجيل عائلة جديدة في المخيم</h3>
                 </div>
+                
+         
                 
                 <div class="card-body p-4 text-right">
                     <form id="create_form">
@@ -149,7 +151,6 @@
         formData.append('original_area', document.getElementById('original_area').value);
         formData.append('current_area', document.getElementById('current_area').value);
 
-        // 2. من الأفضل استخدام دالة route الخاصة بـ Laravel كما في الكود الأول لضمان صحة الرابط
 performStore(`{{ route('families.store') }}`, formData);    }
 </script> 
 @endsection

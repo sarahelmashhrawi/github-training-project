@@ -17,7 +17,6 @@ return new class extends Migration
     $table->unsignedBigInteger('supervisor_id')->nullable();
     $table->text('description')->nullable();
     $table->timestamps();
-
     $table->foreign('supervisor_id')->references('id')->on('users')->onDelete('set null');
 });
 

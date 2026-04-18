@@ -35,13 +35,11 @@
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(5px);
-            /* إضافة كلاس للإخفاء المبدئي عشان حركة الـ Fade-in */
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
-        /* كلاس رح نضيفه بالـ JS عشان تظهر البطاقة */
         .login-card.show-card {
             opacity: 1;
             transform: translateY(0);
@@ -89,7 +87,6 @@
             color: #6c757d;
         }
         
-        /* تعديل الزوايا عشان أيقونة العين تكون عاليسار */
         .input-group-text.icon-right { border-radius: 0 10px 10px 0 !important; }
         .input-group-text.icon-left { border-radius: 10px 0 0 10px !important; cursor: pointer; }
 
@@ -100,9 +97,8 @@
             transition: all 0.3s ease;
         }
         
-        /* تعديل الحقل اللي ما عنده أيقونة عاليسار (الإيميل) */
         .form-control.no-left-icon { border-radius: 10px 0 0 10px !important; }
-        /* الحقل اللي بالنص (الباسوورد) */
+        /*    (الباسوورد) */
         .form-control.middle-input { border-radius: 0 !important; border-left: none; }
 
         .form-control:focus {
@@ -139,7 +135,6 @@
             color: white;
         }
 
-        /* كلاس عشان حالة التحميل (الزر لما ينضغط) */
         .btn-login.loading {
             opacity: 0.8;
             pointer-events: none;

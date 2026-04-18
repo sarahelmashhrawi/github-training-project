@@ -12,30 +12,19 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3 class="fw-bold text-dark m-0">📍 قائمة المناطق</h3>
                 
-             <div class="d-flex align-items-center gap-3">
-    
- <div class="d-flex flex-column gap-2">
-    <a href="{{ route('sectors.create') }}" class="btn btn-primary btn-add fw-bold text-white w-100">
-        إضافة منطقة +
-    </a>
-    
-    <a href="{{ route('sectors-trashed') }}" class="btn btn-danger btn-add fw-bold text-white w-100">
-        <i class="fa-solid fa-trash-can me-1"></i> سلة المحذوفات
-    </a>
-</div>
-</div>
+                <div>
+                    <a href="{{ route('dashboard') }}" class="btn btn-primary px-4 rounded shadow-sm">
+                        <i class="fa-solid fa-arrow-right mr-1"></i> العودة للوحة التحكم
+                    </a> 
+                </div>
             </div>
- <div>
-                     <a href="{{ route('dashboard') }}" class="btn btn-primary px-4 rounded shadow-sm">
-            <i class="fa-solid fa-arrow-right mr-1"></i> العودة للوحة التحكم
-        </a> 
-        </div>
+
             <table id="sectorsTable" class="table table-hover align-middle">
                 <thead>
                     <tr>
                         <th>الرقم</th>
                         <th>اسم المنطقة</th>
-                        <th> العنوان</th>
+                        <th>العنوان</th>
                         <th class="text-center">إجراءات</th>
                     </tr>
                 </thead>
@@ -46,8 +35,8 @@
                         <td class="fw-bold">{{ $sector->name }}</td>
                         <td>{{ $sector->description ?? 'غير محدد' }}</td>
                         <td class="text-center">
-                            <a href="{{ route('sectors.edit', $sector->id) }}" class="btn btn-warning btn-sm px-3 mx-1 text-dark fw-bold">
-                                <i class="fa fa-edit"></i> تعديل
+                            <a href="{{ route('sectors-restore', $sector->id) }}" class="btn btn-success btn-sm px-3 mx-1 text-white fw-bold">
+                                <i class="fa-solid fa-rotate-left"></i> استرجاع
                             </a>
                             
                             <button type="button" onclick="confirmDestroy('{{ route('sectors.destroy', $sector->id) }}', this)" class="btn btn-danger btn-sm px-3">
@@ -63,4 +52,4 @@
 @endsection
 
 @section('scripts')
-    @endsection
+@endsection
