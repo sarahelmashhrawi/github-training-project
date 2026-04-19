@@ -35,14 +35,20 @@
                         <td class="fw-bold">{{ $sector->name }}</td>
                         <td>{{ $sector->description ?? 'غير محدد' }}</td>
                         <td class="text-center">
+                            <div class ="btn group">
+
                             <a href="{{ route('sectors-restore', $sector->id) }}" class="btn btn-success btn-sm px-3 mx-1 text-white fw-bold">
                                 <i class="fa-solid fa-rotate-left"></i> استرجاع
                             </a>
+                            <a href="{{ route('sectors-force', $sector->id) }}" class="btn btn-danger btn-sm px-3 mx-1 text-white fw-bold">
+                             <i class="fa fa-trash"></i> حذف
+                            </a>
+                         
                             
-                            <button type="button" onclick="confirmDestroy('{{ route('sectors.destroy', $sector->id) }}', this)" class="btn btn-danger btn-sm px-3">
-                                <i class="fa fa-trash"></i> حذف
-                            </button>
+                           
+                            </div>
                         </td>
+
                     </tr>
                     @endforeach
                 </tbody>
@@ -52,4 +58,7 @@
 @endsection
 
 @section('scripts')
+<script>
+
+</script>
 @endsection

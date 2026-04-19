@@ -867,7 +867,7 @@ body {
 .small-box.bg-warning, 
 .small-box.family-widget { /* استبدلي family-widget بالكلاس الخاص بصندوق العائلات */
     background-color: #ffc107 !important;
-    color: #fff !important;
+    color: #928989 !important;
 }
 
 /* التأكد من أن النصوص داخل الصندوق تظهر باللون الأبيض فوق الأورنج */

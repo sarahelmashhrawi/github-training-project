@@ -49,9 +49,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::post('/update-avatar', [UserController::class, 'updateAvatar']);
 Route::delete('/delete-avatar', [UserController::class, 'deleteAvatar']);
-Route::get('/individuals/{id}/edit', [IndividualController::class, 'edit'])->name('individuals.edit');
+Route::get('/individuals-edit/{id}', [IndividualController::class, 'edit'])->name('individuals.edit');
 Route::get('sectors/trashed', [SectorController::class, 'trashed'])->name('sectors-trashed');
-Route::get('sectors/{id}/restore', [SectorController::class, 'restore'])->name('sectors-restore');
+Route::get('sectors-restore/{id}', [SectorController::class, 'restore'])->name('sectors-force');
+Route::get('sectors-force/{id}', [SectorController::class, 'restore'])->name('sectors-restore');
+
 Route::resource('sectors', SectorController::class);})
 
   

@@ -95,7 +95,7 @@ public function update(Request $request, Sector $sector)
 
     public function trashed()
     {
-        $sectors = \App\Models\Sector::onlyTrashed()->orderBy('id', 'desc')->simplePaginate(10);
+        $sectors = Sector::onlyTrashed()->orderBy('id', 'desc')->simplePaginate(10);
         
         return response()->view('sectors.trashed', compact('sectors'));
     }
@@ -103,10 +103,16 @@ public function update(Request $request, Sector $sector)
   
     public function restore($id)
     {
-        $sector = Sector::withTrashed()->findOrFail($id);
+        $sector = Sector::onlyTrashed()->findOrFail($id)->restore();
         
-        $sector->restore();
         
         return back()->with('success', 'تم استرجاع المنطقة بنجاح');
+    }
+        public function force($id)
+    {
+        $sector = Sector::onlyTrashed()->findOrFail($id)->forceDelete();
+        
+        
+        return back()->with('success', 'تم حذف المنطقة نهائيا');
     }
 }

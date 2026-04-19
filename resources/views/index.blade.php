@@ -13,40 +13,64 @@
     </div>
 
     {{-- المربعات الإحصائية (Small Boxes) --}}
-    <div class="row">
-        <div class="col-lg-4 col-12">
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3>{{ $individualsCount ?? 0 }}</h3>
-                    <p>إجمالي النازحين</p>
-                </div>
-                <div class="icon"><i class="fa-solid fa-people-group"></i></div>
-                <a href="{{ route('individuals.index') }}" class="small-box-footer">التفاصيل <i class="fas fa-arrow-circle-left"></i></a>
+  <div class="row">
+    <div class="col-lg-4 col-12">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ $individualsCount ?? 0 }}</h3>
+                <p>إجمالي النازحين</p>
             </div>
-        </div>
-        
-        <div class="col-lg-4 col-12">
-            <div class="small-box bg-success">
-                <div class="inner">
-                    <h3>{{ $tentsCount ?? 0 }}</h3>
-                    <p>الخيام المسجلة</p>
-                </div>
-                <div class="icon"><i class="fa-solid fa-campground"></i></div>
-                <a href="{{ route('tents.index') }}" class="small-box-footer">التفاصيل <i class="fas fa-arrow-circle-left"></i></a>
-            </div>
-        </div>
-
-        <div class="col-lg-4 col-12">
-            <div class="small-box bg-warning">
-                <div class="inner">
-                    <h3>{{ $familiesCount ?? 0 }}</h3>
-                    <p>العائلات</p>
-                </div>
-                <div class="icon"><i class="fa-solid fa-house-user"></i></div>
-                <a href="{{ route('families.index') }}" class="small-box-footer">التفاصيل <i class="fas fa-arrow-circle-left"></i></a>
-            </div>
+            <div class="icon"><i class="fa-solid fa-people-group"></i></div>
+            <a href="{{ route('individuals.index') }}" class="small-box-footer">التفاصيل <i class="fas fa-arrow-circle-left"></i></a>
         </div>
     </div>
+
+    <div class="col-lg-4 col-12">
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>{{ $tentsCount ?? 0 }}</h3>
+                <p>الخيام المسجلة</p>
+            </div>
+            <div class="icon"><i class="fa-solid fa-campground"></i></div>
+            <a href="{{ route('tents.index') }}" class="small-box-footer">التفاصيل <i class="fas fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-12">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ $sectorsCount ?? 0 }}</h3>
+                <p>إدارة المناطق</p>
+            </div>
+            <div class="icon"><i class="fa-solid fa-map-marked-alt"></i></div>
+            <a href="{{ route('sectors.index') }}" class="small-box-footer">التفاصيل <i class="fas fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-4 col-12">
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>{{ $campaignsCount ?? 0 }}</h3>
+                <p>إدارة المساعدات</p>
+            </div>
+            <div class="icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
+            <a href="{{ route('campaigns.index') }}" class="small-box-footer">التفاصيل <i class="fas fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-12">
+        <div class="small-box bg-primary">
+            <div class="inner">
+                <h3>{{ $familiesCount ?? 0 }}</h3>
+                <p>العائلات</p>
+            </div>
+            <div class="icon"><i class="fa-solid fa-house-user"></i></div>
+            <a href="{{ route('families.index') }}" class="small-box-footer">التفاصيل <i class="fas fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+</div>
 
     {{-- صف يحتوي على الرسم البياني والتقويم --}}
     <div class="row mt-3">

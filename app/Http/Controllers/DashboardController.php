@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Individual;
 use App\Models\Tent;
 use App\Models\Family;
+use App\Models\Sector;   
+use App\Models\Campaign; 
 use Carbon\Carbon;
 
 class DashboardController extends BaseController
@@ -17,6 +19,10 @@ class DashboardController extends BaseController
         $individualsCount = Individual::count() + Family::count();
         $tentsCount = Tent::count();
         $familiesCount = Family::count();
+        
+        // إحصائيات جديدة
+        $sectorsCount = Sector::count();    // حساب المناطق
+        $campaignsCount = Campaign::count(); // حساب المساعدات (الحملات)
 
         // سنوات الفصل (بناءً على سنة 2026)
         $currentYear = 2026; 
@@ -24,11 +30,10 @@ class DashboardController extends BaseController
         $elderYearLimit = $currentYear - 60; // 1966
 
         // 2. تصنيف الفئات السكنية
-
         // أطفال: (من جدول الأفراد فقط)
         $childrenCount = Individual::whereYear('dob', '>', $childYearLimit)->count();
 
-        // شباب (ذكور): أفراد ذكور + أرباب أسر في هذا العمر
+        // شباب (ذكور)
         $youthIndividuals = Individual::whereYear('dob', '>', $elderYearLimit)
                                     ->whereYear('dob', '<=', $childYearLimit)
                                     ->where('gender', 'male')->count();
@@ -38,21 +43,22 @@ class DashboardController extends BaseController
         
         $youthCount = $youthIndividuals + $youthHeads;
 
-        // نساء (إناث): أفراد إناث فقط (لأن رب الأسرة ليس له جنس محدد في جدوله)
+        // نساء (إناث)
         $womenCount = Individual::whereYear('dob', '>', $elderYearLimit)
                                     ->whereYear('dob', '<=', $childYearLimit)
                                     ->where('gender', 'female')->count();
 
-        // مسنين: (أفراد <= 1966) + (أرباب أسر <= 1966)
+        // مسنين
         $eldersIndividuals = Individual::whereYear('dob', '<=', $elderYearLimit)->count();
         $eldersHeads = Family::whereYear('dob', '<=', $elderYearLimit)->count();
         
         $eldersCount = $eldersIndividuals + $eldersHeads;
 
-        // إرجاع البيانات للملف
+        // إرجاع البيانات للملف (تم إضافة المتغيرات الجديدة هنا)
         return view('index', compact(
             'individualsCount', 'tentsCount', 'familiesCount', 
-            'childrenCount', 'youthCount', 'womenCount', 'eldersCount'
+            'childrenCount', 'youthCount', 'womenCount', 'eldersCount',
+            'sectorsCount', 'campaignsCount' 
         ));
     }
 }
