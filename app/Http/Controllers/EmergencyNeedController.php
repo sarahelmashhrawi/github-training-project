@@ -65,30 +65,45 @@ class EmergencyNeedController
 }
 public function update(Request $request, $id)
 {
-    $validator = Validator($request->all(), [
-        'family_id' => 'required',
-        'type_of_need' => 'required',
+    $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
+        'family_id'     => 'required',
+        'type_of_need'  => 'required',
         'urgency_level' => 'required',
-        'status' => 'required',
+        'status'        => 'required',
     ]);
 
-    if (!$validator->fails()) {
+    if ($validator->fails()) {
+        return response()->json([
+            'icon'  => 'error',
+            'title' => 'خطأ في البيانات',
+            'text'  => $validator->getMessageBag()->first() 
+        ], 400);
+    }
+
+    try {
         $need = EmergencyNeed::findOrFail($id);
-        $need->family_id = $request->input('family_id');
-        $need->type_of_need = $request->input('type_of_need');
+        $need->family_id     = $request->input('family_id');
+        $need->type_of_need  = $request->input('type_of_need');
         $need->urgency_level = $request->input('urgency_level');
-        $need->status = $request->input('status');
-        $need->description = $request->input('description');
+        $need->status        = $request->input('status');
+        $need->description   = $request->input('description');
+        
         $isSaved = $need->save();
 
         return response()->json([
-            'icon' => $isSaved ? 'success' : 'error',
+            'icon'  => $isSaved ? 'success' : 'error',
             'title' => $isSaved ? 'رائع' : 'فشل',
-            'text' => $isSaved ? 'تم تحديث البلاغ بنجاح' : 'فشل التحديث'
+            'text'  => $isSaved ? 'تم تحديث البلاغ بنجاح' : 'فشل التحديث'
         ], $isSaved ? 200 : 400);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'icon'  => 'error',
+            'title' => 'خطأ فني',
+            'text'  => 'حدث خطأ أثناء الحفظ: ' . $e->getMessage()
+        ], 500);
     }
 }
-
     public function destroy($id)
     {
         $deleted = EmergencyNeed::destroy($id);

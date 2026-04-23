@@ -72,27 +72,47 @@
         console.log("بدء محاولة التحديث...");
 
         let data = {
+            _token: "{{ csrf_token() }}", 
+            _method: 'PUT',              
             family_id: document.getElementById('family_id').value,
             type_of_need: document.getElementById('type_of_need').value,
             urgency_level: document.getElementById('urgency_level').value,
             status: document.getElementById('status').value,
             description: document.getElementById('description').value,
-            _method: 'PUT' 
         };
 
-        axios.post('/emergency_needs/{{ $need->id }}', data)
+        // 2. استخدام المسمّى البرمجي للرابط (Route Name) لضمان عدم وجود خطأ في الـ URL
+        axios.post("{{ route('emergency_needs.update', $need->id) }}", data)
             .then(function (response) {
-                console.log("نجحنا! السيرفر رد بـ:", response.data);
+                console.log("نجح التحديث:", response.data);
                 
-                Swal.fire('تم التعديل', 'تم حفظ البيانات بنجاح', 'success');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'رائع',
+                    text: response.data.text,
+                    timer: 1500
+                });
 
                 setTimeout(function() {
                     window.location.href = "{{ route('emergency_needs.index') }}";
                 }, 1500);
             })
             .catch(function (error) {
-                console.error("هنا المشكلة! خطأ من السيرفر:", error.response);
-                alert("فشل التحديث: " + (error.response?.data?.text || "خطأ غير معروف"));
+                console.error("تفاصيل الخطأ:", error.response);
+                
+                // استخراج الرسالة القادمة من السيرفر بشكل احترافي
+                let errorMessage = "حدث خطأ غير متوقع";
+                if (error.response && error.response.data && error.response.data.text) {
+                    errorMessage = error.response.data.text;
+                } else if (error.response && error.response.status === 419) {
+                    errorMessage = "انتهت صلاحية الصفحة (CSRF Token)، يرجى تحديث الصفحة";
+                }
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'فشل التحديث',
+                    text: errorMessage
+                });
             });
     }
 </script>

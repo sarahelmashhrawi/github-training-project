@@ -814,14 +814,28 @@ body {
 }
 
 /* تعديل حقول الإدخال */
+/* تعديل حقول الإدخال و الـ Dropdown لضبط تمركز النص */
 .form-select, .form-control { 
     border-radius: 10px; 
     border: 1px solid #ddd; 
-    padding: 12px 15px; 
+    padding: 10px 15px !important; /* تقليل البادينج العلوي قليلاً */
     font-size: 16px !important; 
     font-weight: bold !important; 
     color: #000000 !important; 
     background-color: #ffffff !important; 
+    
+    /* الحل الجذري لمشكلة النص الغاطس */
+    line-height: 1.5 !important; 
+    height: calc(2.25rem + 12px) !important; /* إعطاء ارتفاع ثابت متناسب مع الخط */
+    display: flex;
+    align-items: center;
+}
+
+/* إصلاح خاص للـ Select (الدروب داون) */
+select.form-select {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    appearance: none; /* لإلغاء أي تنسيق افتراضي للمتصفح قد يزيح النص */
 }
 
 /* تعديل زر الحفظ (إزالة اللون الأصفر) */
@@ -844,9 +858,7 @@ body {
     border-color: #28a745; 
 }
 
-/* =========================================
-   6. الحل النهائي لفرض اللون الأبيض/الأسود
-========================================= */
+
 
 .content-wrapper,
 .content-wrapper label,

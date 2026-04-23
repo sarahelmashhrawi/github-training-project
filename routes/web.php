@@ -68,4 +68,5 @@ Route::middleware('auth')->group(function () {
     Route::get('sectors-restore/{id}', [SectorController::class, 'restore'])->name('sectors-force');
     Route::get('sectors-force/{id}', [SectorController::class, 'restore'])->name('sectors-restore');
     Route::get('cms/gallery', [GalleryController::class, 'index']);
+    Route::put('/emergency-needs/{id}', [EmergencyNeedController::class, 'update'])->name('emergency-needs.update');
 });
