@@ -1,0 +1,49 @@
+/* public/css/sectors/create.css */
+
+/* تنسيق الكاريد الرئيسي */
+.sector-card {
+    border: none !important;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-top: 1.5rem;
+    overflow: hidden;
+}
+
+/* رأس البطاقة */
+.sector-header {
+    background-color: #198754; /* لون النجاح الأخضر */
+    color: #ffffff;
+    padding: 1.5rem;
+}
+
+.sector-header h3 {
+    font-weight: 700;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* التنسيقات الخاصة بالفورم */
+.form-label-custom {
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 0.5rem;
+}
+
+.custom-input {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    transition: all 0.3s ease;
+}
+
+.custom-input:focus {
+    box-shadow: 0 0 10px rgba(25, 135, 84, 0.15) !important;
+    border-color: #198754 !important;
+}
+
+/* المحاذاة */
+.text-align-start {
+    text-align: start;
+}

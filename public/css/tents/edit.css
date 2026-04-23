@@ -1,0 +1,9 @@
+ .custom-card { border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 4px solid #198754; }
+    .form-label { font-weight: bold; color: #333; }
+    .form-control, .form-select { height: 48px; border-radius: 10px !important; border: 1px solid #ced4da; }
+    
+    .btn-update { background-color: #198754; color: white; padding: 12px; border-radius: 10px; font-weight: bold; border: none; transition: 0.3s; }
+    .btn-update:hover { background-color: #157347; color: white; }
+    
+    .btn-back { background-color: #6c757d; color: white; padding: 12px; border-radius: 10px; font-weight: bold; border: none; transition: 0.3s; }
+    .btn-back:hover { background-color: #5a6268; color: white; }

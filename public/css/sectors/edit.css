@@ -1,0 +1,55 @@
+.edit-header {
+    background-color: #789cd3 !important; /
+    color: #ffffff !important;
+    padding: 30px 20px !important; 
+    border-bottom: 4px solid #0d6efd; 
+    border-radius: 15px 15px 0 0;
+}
+
+.edit-header h3 {
+    font-size: 1.8rem !important;
+    font-weight: bold !important;
+    margin-bottom: 10px !important;
+}
+
+.edit-header small {
+    font-size: 1rem !important;
+    color: #cccccc !important; 
+}
+/* العناوين داخل الفورم */
+.form-label-edit {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* الحقول */
+.edit-input {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 10px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.edit-input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+    outline: none;
+}
+
+/* زر التحديث المخصص */
+.btn-update {
+    background-color: #0d6efd;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-update:hover {
+    background-color: #0b5ed7;
+    color: white;
+}

@@ -1,0 +1,54 @@
+/* 1. الإعدادات الأساسية والخطوط وإلغاء تظليل النصوص الأزرق */
+body { font-family: 'Cairo', sans-serif !important; color: #333; }
+
+::selection {
+    background: #212529 !important; /* لون التظليل أسود */
+    color: #ffffff !important;
+}
+
+/* 2. تصميم الجداول العصري */
+.table-container { background: white; border-radius: 12px; overflow-x: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-top: 20px; }
+.custom-table { width: 100%; border-collapse: collapse; min-width: 1000px; }
+.custom-table th { background: #198754; color: white; padding: 16px; text-align: center; } /* أخضر للهيدر */
+.custom-table td { padding: 14px; border-bottom: 1px solid #edf2f7; vertical-align: middle; text-align: center; color: #444; }
+.custom-table tr:hover { background-color: #f1f7ff; }
+
+/* 3. تصميم الكارد والمدخلات (Forms) */
+.custom-card { border: none; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); background: #fff; margin-bottom: 20px; border-top: 4px solid #198754 !important; padding: 20px; }
+.form-label { font-weight: bold; color: #212529 !important; margin-bottom: 8px; font-size: 14px; }
+.form-control, .form-select { 
+    border-radius: 8px !important; 
+    border: 1px solid #ced4da !important; 
+    padding: 10px 15px; 
+    min-height: 48px !important; 
+    font-size: 14px; 
+    background-color: #ffffff !important; 
+    color: #212529 !important; 
+}
+.form-control:focus { border-color: #198754; box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.15); }
+
+/* 4. الأزرار (أخضر ليتناسب مع الداشبورد) */
+.btn-custom-primary, .btn-custom-success { 
+    background-color: #198754; 
+    color: white; 
+    border-radius: 10px; 
+    padding: 10px 30px; 
+    font-weight: bold; 
+    border: none; 
+    transition: 0.3s; 
+}
+.btn-custom-primary:hover, .btn-custom-success:hover { 
+    background-color: #157347; 
+    color: white; 
+}
+
+/* 5. البادجات */
+.custom-badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+.badge-health { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+.badge-chronic { background: #ffedd5; color: #9a3412; border: 1px solid #fde68a; }
+.badge-safe { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+
+/* 6. الخط الفاصل والتحسينات */
+.custom-card hr { border-top: 2px solid #dee2e6 !important; opacity: 1 !important; margin: 2rem 0; }
+.custom-switch .custom-control-label::before { width: 2.5rem; height: 1.25rem; border-radius: 2rem; cursor: pointer; }
+.custom-switch .custom-control-input:checked ~ .custom-control-label::before { background-color: #dc3545; border-color: #dc3545; }

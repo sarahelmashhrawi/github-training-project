@@ -1,0 +1,78 @@
+/* تنسيقات واجهة التعديل المبسطة */
+body, .container-fluid { 
+    font-family: 'Cairo', sans-serif; 
+}
+
+.card { 
+    border: none; 
+    border-radius: 15px; 
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05); 
+    background: #fff; 
+    margin-bottom: 20px; 
+    border-top: 4px solid #0d6efd !important;
+}
+
+label { 
+    font-weight: bold; 
+    color: #495057; 
+    margin-bottom: 8px;
+}
+
+/* تنسيق الحقول بعد إزالة الأيقونات (زوايا دائرية بالكامل) */
+.form-control { 
+    border-radius: 8px !important; 
+    border: 1px solid #ced4da; 
+    padding: 10px 15px;
+    width: 100%;
+}
+
+.form-select {
+    padding-right: 15px !important; /* مساحة لظهور النص من اليمين */
+    padding-left: 35px !important;  /* إبعاد النص عن السهم الموجود على اليسار */
+    background-position: left 0.75rem center !important; /* التأكد من بقاء السهم على اليسار */
+}
+
+.form-control:focus, .form-select:focus { 
+    border-color: #0d6efd; 
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); 
+    outline: none;
+}
+
+/* تنسيق أزرار الحفظ (تناسب كلاس btn-primary الأساسي) */
+.btn-primary { 
+    border-radius: 8px; 
+    padding: 10px 30px; 
+    font-weight: bold; 
+    transition: 0.3s; 
+}
+
+.btn-primary:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3); 
+}
+
+/* الخط الفاصل */
+hr {
+    border-top: 2px solid #dee2e6;
+    opacity: 1;
+}
+/* --- الحل النهائي والحديث لمشكلة تداخل التشيك بوكس مع النص --- */
+.form-check {
+    display: flex !important;
+    align-items: center !important; /* توسيط المربع مع النص على نفس الخط */
+    gap: 8px !important; /* مسافة أمان ثابتة بين المربع والكلمة (لا يمكن تجاوزها) */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.form-check-input {
+    float: none !important;
+    margin: 0 !important;
+    position: static !important; /* إزالة الطيران ليصبح المربع عنصراً طبيعياً */
+}
+
+.form-check-label {
+    margin: 0 !important;
+    display: inline-block;
+    cursor: pointer;
+}

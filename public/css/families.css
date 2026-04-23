@@ -1,0 +1,96 @@
+/* =========================================
+   ملف التنسيقات الشامل لقسم العائلات (Families)
+========================================= */
+
+/* --- 1. التنسيقات المشتركة (الكروت والأزرار) --- */
+.custom-card, .custom-profile-card { 
+    border: none; 
+    border-radius: 15px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+    background: #fff; 
+    margin-bottom: 20px; 
+}
+.btn-back { 
+    background-color: #6c757d; 
+    color: white; 
+    border-radius: 10px; 
+    transition: 0.3s; 
+}
+.btn-back:hover { 
+    background-color: #5a6268; 
+    color: white; 
+    transform: translateX(-3px); 
+}
+.btn-add { 
+    background: linear-gradient(45deg, #0d6efd, #0dcaf0); 
+    border: none; 
+    border-radius: 10px; 
+    transition: transform 0.2s; 
+}
+.btn-add:hover { 
+    transform: translateY(-2px); 
+    color: #fff; 
+}
+
+/* --- 2. تنسيقات صفحة عرض التفاصيل (Show) --- */
+.info-label { font-size: 0.85rem; color: #6c757d; font-weight: bold; margin-bottom: 5px; display: block; }
+.info-value { font-size: 1.1rem; font-weight: bold; color: #2b2b2b; }
+.icon-box { 
+    width: 45px; 
+    height: 45px; 
+    border-radius: 12px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 1.3rem; 
+    margin-left: 15px; 
+}
+.bg-light-primary { background-color: #e7f1ff; color: #0d6efd; }
+.bg-light-success { background-color: #d1e7dd; color: #198754; }
+.bg-light-warning { background-color: #fff3cd; color: #ffc107; }
+
+/* --- 3. تنسيقات صفحة الجدول (Index) ومربع البحث --- */
+.search-box { position: relative; width: 250px; }
+.search-box input { 
+    padding-right: 40px; 
+    border-radius: 25px; 
+    border: 1px solid #e0e0e0; 
+    height: 45px; 
+    transition: all 0.3s ease; 
+    width: 100%; 
+}
+.search-box input:focus { 
+    border-color: #0d6efd; 
+    box-shadow: 0 0 8px rgba(13, 110, 253, 0.2); 
+    outline: none; 
+}
+.search-box i { position: absolute; right: 15px; top: 13px; color: #0d6efd; font-size: 1.1rem; }
+
+/* ألوان شارات التصنيف (Badges) */
+.badge-normal { background-color: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
+.badge-female { background-color: #f8d7da; color: #842029; border: 1px solid #f5c2c7; }
+.badge-orphans { background-color: #cff4fc; color: #055160; border: 1px solid #b6effb; }
+
+/* تعديلات جداول DataTables */
+.dataTables_filter, .dataTables_length, .dataTables_paginate { display: none !important; }
+.table thead th { background-color: #f8f9fa; border-bottom: 2px solid #dee2e6; color: #555; }
+
+
+/* --- إصلاح ألوان النصوص في جميع الصفحات --- */
+.custom-card, 
+.custom-card label, 
+.custom-card .form-control, 
+.custom-card .form-select, 
+.custom-card table td, 
+.custom-card table th {
+    color: #333333 !important; /* فرض اللون الرمادي الغامق للنصوص */
+}
+
+.custom-card input::placeholder {
+    color: #999999 !important; /* لون فاتح شوي للنص الإرشادي (Placeholder) */
+}
+
+/* في حال كان في أيقونات جوا الحقول مش مبينة */
+.input-group-text i {
+    color: #555555 !important;
+}
