@@ -4,8 +4,6 @@
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/tents/edit.css') }}">
-
-
 @endsection
 
 @section('content')
@@ -33,6 +31,17 @@
                         <div class="col-md-6 mb-3">
                             <label class="form-label">السعة (أفراد)</label>
                             <input type="number" name="capacity" class="form-control" value="{{ $tent->capacity }}" required>
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">المخيم التابع له</label>
+                            <select name="camp_id" class="form-control" required>
+                                @foreach($camps as $camp)
+                                    <option value="{{ $camp->id }}" @if($tent->camp_id == $camp->id) selected @endif>
+                                        {{ $camp->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="col-md-12 mb-3">

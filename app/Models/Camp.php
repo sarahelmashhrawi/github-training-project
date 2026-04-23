@@ -9,9 +9,7 @@ class Camp extends Model
 {
     use HasFactory;
 
-    /**
-     * الحقول المسموح بتعبئتها لضمان حماية البيانات
-     */
+  
     protected $fillable = [
         'camp_number', 
         'name', 
@@ -23,7 +21,10 @@ class Camp extends Model
     ];
 
     
-
+public function tent()
+{
+    return $this->hasMany(Tent::class);
+}
     /**
      * علاقة: المخيم يتبع لقطاع واحد (Sector)
      */

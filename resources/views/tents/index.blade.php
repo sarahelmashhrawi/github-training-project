@@ -23,6 +23,7 @@
                         <th>المنطقة</th>
                         <th>الحالة</th>
                         <th>السعة</th>
+                        <th>اسم المخيم  </th>
                         <th class="text-center">إجراءات</th>
                     </tr>
                 </thead>
@@ -30,6 +31,7 @@
                     @forelse($tents as $tent)
                     <tr>
                         <td class="fw-bold text-success">{{ $tent->tent_number }}</td>
+                    
                         <td><i class="fas fa-map-marker-alt text-danger me-1"></i> {{ $tent->sector->name ?? 'غير محددة' }}</td>
                         <td>
                             <span class="badge px-3 py-2 rounded-pill 
@@ -41,7 +43,10 @@
                                    ($tent->condition == 'needs_shade' ? 'تحتاج شادر' : 'غارقة')) }}
                             </span>
                         </td>
+                        
                         <td><i class="fas fa-users me-1 text-secondary"></i> {{ $tent->capacity }}</td>
+                    <td>{{ $tent->camp->name ?? 'لا يوجد مخيم' }}</td>
+                        
                         <td class="text-center">
                             <div class="btn-group gap-2">
                                 <a href="{{ route('tents.edit', $tent->id) }}" class="btn btn-sm btn-outline-warning border-0">

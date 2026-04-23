@@ -4,8 +4,8 @@
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/tents/create.css') }}">
-</style>
 @endsection
+
 @section('content')
 <div class="container-fluid mt-4">
     <div class="row justify-content-center">
@@ -16,6 +16,19 @@
                 <form id="create-form">
                     @csrf
                     <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">المخيم</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-campground"></i></span>
+                                <select name="camp_id" class="form-control" required>
+                                    <option value="">-- اختر المخيم --</option>
+                                    @foreach($camps as $camp)
+                                        <option value="{{ $camp->id }}">{{ $camp->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="col-md-12 mb-3">
                             <label class="form-label">المنطقة</label>
                             <div class="input-group">
@@ -52,10 +65,8 @@
                                 <select name="condition" class="form-control" required>
                                     <option value="good">ممتازة</option>
                                     <option value="worn">مهترئة</option>
-                                    <option value="worn">تحتاج شادر</option>
-                                    <option value="worn">غارقة </option>
-
-
+                                    <option value="needs_cover">تحتاج شادر</option>
+                                    <option value="flooded">غارقة</option>
                                 </select>
                             </div>
                         </div>

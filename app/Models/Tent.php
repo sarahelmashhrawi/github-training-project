@@ -16,7 +16,10 @@ class Tent extends Model
         return $this->belongsTo(Sector::class);
     }
 
-
+public function camp()
+{
+    return $this->belongsTo(Camp::class);
+}
    
 // علاقة الخيمة بالعائلات (خيمة واحدة قد تحتوي على أكثر من عائلة)
     public function families()
