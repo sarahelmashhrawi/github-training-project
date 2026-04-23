@@ -1,222 +1,309 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول - نظام إدارة المخيمات</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>تسجيل الدخول | نظام إدارة المخيم</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css">
+
     <style>
         body {
             font-family: 'Cairo', sans-serif;
+            /* مسار صورة الخلفية */
+
             background-image: url('{{ asset('images/login (1).png') }}'); 
+            /* background: url('{{ asset("images/camp-background.jpg") }}') no-repeat center center fixed; */
             background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4);
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0;
-        }
-        
-        .login-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 550px; 
-            padding: 50px; 
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            background-color: #e9ecef; /* لون احتياطي في حال عدم تحميل الصورة */
         }
 
-        .login-card.show-card {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .login-card::before {
-            content: '';
+        .overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, #0d6efd, #0dcaf0);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
         }
 
-        .login-icon {
-            width: 80px;
-            height: 80px;
-            background: rgba(13, 110, 253, 0.1);
+        .login-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            text-align: center;
+            z-index: 2;
+            border-top: 6px solid #0d6efd; 
+        }
+
+        .shield-icon {
+            background-color: #e6f0ff;
             color: #0d6efd;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 35px;
-            margin: 0 auto 20px auto;
+            font-size: 26px;
+            margin: 0 auto 15px auto;
         }
 
-        .login-header h2 {
+        .system-title {
             font-weight: 700;
-            color: #2c3e50;
-            font-size: 26px;
+            color: #212529;
+            font-size: 22px;
             margin-bottom: 5px;
         }
 
-        .login-header p {
+        .system-subtitle {
             color: #6c757d;
-            font-size: 15px;
+            font-size: 13px;
             margin-bottom: 30px;
+            font-weight: 600;
         }
 
-        .input-group-text {
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
+        .form-group {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 13px;
+            color: #495057;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            background-color: #f8faff;
+            padding-right: 40px; 
+            padding-left: 40px;  
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-wrapper input:focus {
+            border-color: #0d6efd;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+
+        .input-wrapper .icon-right {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
             color: #6c757d;
-        }
-        
-        .input-group-text.icon-right { border-radius: 0 10px 10px 0 !important; }
-        .input-group-text.icon-left { border-radius: 10px 0 0 10px !important; cursor: pointer; }
-
-        .form-control {
-            padding: 12px 15px;
-            border: 1px solid #dee2e6;
-            font-size: 15px;
-            transition: all 0.3s ease;
-        }
-        
-        .form-control.no-left-icon { border-radius: 10px 0 0 10px !important; }
-        /*    (الباسوورد) */
-        .form-control.middle-input { border-radius: 0 !important; border-left: none; }
-
-        .form-control:focus {
-            box-shadow: none;
-            border-color: #0d6efd;
+            font-size: 14px;
         }
 
-        .input-group:focus-within .input-group-text {
-            border-color: #0d6efd;
+        .input-wrapper .icon-left {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
             color: #0d6efd;
+            font-size: 14px;
+            cursor: pointer;
         }
 
-        .form-check-input:checked {
-            background-color: #0d6efd;
-            border-color: #0d6efd;
+        .input-wrapper .icon-left.text-muted {
+            color: #6c757d !important;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .checkbox-container input {
+            margin-left: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-container label {
+            font-size: 13px;
+            color: #6c757d;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0;
         }
 
         .btn-login {
-            background: linear-gradient(45deg, #0d6efd, #0b5ed7);
+            background-color: #0d6efd;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 6px;
             padding: 12px;
-            font-weight: 700;
-            font-size: 16px;
             width: 100%;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.2);
+            font-weight: 700;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
         }
 
         .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(13, 110, 253, 0.3);
+            background-color: #0b5ed7;
             color: white;
         }
 
-        .btn-login.loading {
-            opacity: 0.8;
-            pointer-events: none;
-        }
-
-        .alert-danger {
-            border-radius: 10px;
-            font-size: 14px;
-            border-left: 4px solid #dc3545;
-        }
-
-        .invalid-feedback {
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: #adb5bd;
             font-size: 13px;
             font-weight: 600;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .divider::before { margin-left: 15px; }
+        .divider::after { margin-right: 15px; }
+
+        /* --- تنسيقات أيقونات السوشيال ميديا الدائرية --- */
+        .social-icons-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .social-icon:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .social-icon.facebook {
+            background-color: #1877f2;
+        }
+
+      .social-icon.x-twitter {
+    background-color: #000000; /* اللون الأسود الرسمي لمنصة X */
+}
+        /* --- تنسيق رابط نسيان كلمة المرور --- */
+        .forgot-password-link {
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 14px;
+            color: #0d6efd;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .forgot-password-link:hover {
+            text-decoration: underline;
+            color: #0b5ed7;
         }
     </style>
 </head>
 <body>
 
-    <div class="login-card" id="loginCard">
-        <div class="text-center login-header">
-            <div class="login-icon">
-                <i class="fas fa-shield-alt"></i>
+<div class="overlay"></div>
+
+<div class="login-card">
+    <div class="shield-icon">
+        <i class="fas fa-shield-alt"></i>
+    </div>
+    
+    <h2 class="system-title">نظام إدارة المخيم</h2>
+    <p class="system-subtitle">بوابة الدخول للمشرفين والمتطوعين</p>
+
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+
+        <div class="form-group">
+            <label>البريد الإلكتروني</label>
+            <div class="input-wrapper">
+                <i class="fas fa-envelope icon-right"></i>
+                <input type="email" name="email" value="{{ old('email', 'admin@admin.com') }}" class="@error('email') is-invalid @enderror" required autofocus>
             </div>
-            <h2>نظام إدارة المخيم</h2>
-            <p>بوابة الدخول للمشرفين والمتطوعين</p>
+            @error('email')
+                <span class="text-danger d-block mt-1" style="font-size: 12px; text-align: right;">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
 
-        @if($errors->any())
-            <div class="alert alert-danger d-flex align-items-center p-3 mb-4" role="alert">
-                <i class="fas fa-exclamation-triangle me-2"></i>
-                <div>
-                    البريد الإلكتروني أو كلمة المرور غير صحيحة.
-                </div>
-            </div>
-        @endif
-
-        <form action="{{ route('login') }}" method="POST" id="loginForm">
-            @csrf
-            
-            <div class="mb-4">
-                <label for="email" class="form-label fw-bold text-secondary small mb-2">البريد الإلكتروني</label>
-                <div class="input-group">
-                    <span class="input-group-text icon-right"><i class="fas fa-envelope"></i></span>
-                    <input type="email" id="email" name="email" class="form-control no-left-icon @error('email') is-invalid @enderror" value="{{ old('email') }}" required placeholder="name@example.com" autofocus>
-                    @error('email')
-                        <div class="invalid-feedback d-block mt-2">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="mb-4">
-                <label for="password" class="form-label fw-bold text-secondary small mb-2">كلمة المرور</label>
-                <div class="input-group">
-                    <span class="input-group-text icon-right"><i class="fas fa-lock"></i></span>
-                    <input type="password" id="password" name="password" class="form-control middle-input" required placeholder="••••••••">
-                    <span class="input-group-text icon-left" id="togglePassword">
-                        <i class="fas fa-eye"></i>
-                    </span>
-                </div>
-            </div>
-
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="remember" name="remember">
-                    <label class="form-check-label text-secondary small" for="remember">
-                        تذكرني على هذا الجهاز
-                    </label>
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-login" id="submitBtn">
-                <span id="btnText"><i class="fas fa-sign-in-alt me-2"></i> تسجيل الدخول</span>
-                <span id="btnSpinner" class="d-none">
-                    <i class="fas fa-circle-notch fa-spin me-2"></i> جاري الدخول...
-                </span>
-            </button>
-        </form>
+    <div class="form-group">
+    <label>كلمة المرور</label>
+    <div class="input-wrapper">
+        <i class="fas fa-lock icon-right"></i>
+        <input type="password" name="password" id="password" class="@error('password') is-invalid @enderror" required>
+        <i class="fas fa-eye icon-left text-muted" id="togglePassword"></i>
     </div>
+</div>
+
+        <div class="checkbox-container">
+            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+            <label for="remember">تذكرني على هذا الجهاز</label>
+        </div>
+
+        <button type="submit" class="btn-login">
+            تسجيل الدخول
+            <i class="fas fa-sign-in-alt"></i>
+        </button>
+    </form>
+
+    <div class="divider">أو</div>
+
+    <div class="social-icons-container">
+        <a href="https://www.facebook.com/" class="social-icon facebook" title="تسجيل الدخول باستخدام فيسبوك">
+            <i class="fab fa-facebook-f"></i> 
+        </a>
+<a href="https://x.com/" class="social-icon x-twitter" title="منصة X"><i class="fab fa-x-twitter"></i>        </a>
+    </div>
+<div style="margin-top: 15px;">
+        <a href="/password/reset" class="forgot-password-link">هل نسيت كلمة المرور؟</a>
+    </div>
+</div>
 
     <script src="{{ asset('js/login-script.js') }}"></script>
+
 </body>
 </html>

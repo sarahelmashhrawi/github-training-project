@@ -93,7 +93,7 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="ion ion-clipboard mr-1"></i>
-                  To Do List
+                  قائمة المهام (To Do List)
                 </h3>
 
                 <div class="card-tools">
@@ -106,25 +106,19 @@
                   </ul>
                 </div>
               </div>
-              <!-- /.card-header -->
               <div class="card-body">
                 <ul class="todo-list" data-widget="todo-list">
                   <li>
-                    <!-- drag handle -->
                     <span class="handle">
                       <i class="fas fa-ellipsis-v"></i>
                       <i class="fas fa-ellipsis-v"></i>
                     </span>
-                    <!-- checkbox -->
                     <div  class="icheck-primary d-inline ml-2">
                       <input type="checkbox" value="" name="todo1" id="todoCheck1">
                       <label for="todoCheck1"></label>
                     </div>
-                    <!-- todo text -->
-                    <span class="text">Design a nice theme</span>
-                    <!-- Emphasis label -->
-                    <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
-                    <!-- General tools such as edit or delete-->
+                    <span class="text">تسجيل بيانات عائلات جديدة وصلت للمخيم</span>
+                    <small class="badge badge-danger"><i class="far fa-clock"></i> عاجل</small>
                     <div class="tools">
                       <i class="fas fa-edit"></i>
                       <i class="fas fa-trash-o"></i>
@@ -139,8 +133,8 @@
                       <input type="checkbox" value="" name="todo2" id="todoCheck2" checked>
                       <label for="todoCheck2"></label>
                     </div>
-                    <span class="text">Make the theme responsive</span>
-                    <small class="badge badge-info"><i class="far fa-clock"></i> 4 hours</small>
+                    <span class="text">تحديث إحصائيات أعداد النازحين في النظام</span>
+                    <small class="badge badge-info"><i class="far fa-clock"></i> ساعتان</small>
                     <div class="tools">
                       <i class="fas fa-edit"></i>
                       <i class="fas fa-trash-o"></i>
@@ -155,8 +149,8 @@
                       <input type="checkbox" value="" name="todo3" id="todoCheck3">
                       <label for="todoCheck3"></label>
                     </div>
-                    <span class="text">Let theme shine like a star</span>
-                    <small class="badge badge-warning"><i class="far fa-clock"></i> 1 day</small>
+                    <span class="text">تفقد الخيام المتضررة في "المنطقة أ"</span>
+                    <small class="badge badge-warning"><i class="far fa-clock"></i> اليوم</small>
                     <div class="tools">
                       <i class="fas fa-edit"></i>
                       <i class="fas fa-trash-o"></i>
@@ -171,8 +165,8 @@
                       <input type="checkbox" value="" name="todo4" id="todoCheck4">
                       <label for="todoCheck4"></label>
                     </div>
-                    <span class="text">Let theme shine like a star</span>
-                    <small class="badge badge-success"><i class="far fa-clock"></i> 3 days</small>
+                    <span class="text">تجهيز كشوفات توزيع المساعدات الغذائية</span>
+                    <small class="badge badge-success"><i class="far fa-clock"></i> غداً</small>
                     <div class="tools">
                       <i class="fas fa-edit"></i>
                       <i class="fas fa-trash-o"></i>
@@ -187,8 +181,8 @@
                       <input type="checkbox" value="" name="todo5" id="todoCheck5">
                       <label for="todoCheck5"></label>
                     </div>
-                    <span class="text">Check your messages and notifications</span>
-                    <small class="badge badge-primary"><i class="far fa-clock"></i> 1 week</small>
+                    <span class="text">استلام وتسجيل دفعة المساعدات الطبية</span>
+                    <small class="badge badge-primary"><i class="far fa-clock"></i> 3 أيام</small>
                     <div class="tools">
                       <i class="fas fa-edit"></i>
                       <i class="fas fa-trash-o"></i>
@@ -203,8 +197,8 @@
                       <input type="checkbox" value="" name="todo6" id="todoCheck6">
                       <label for="todoCheck6"></label>
                     </div>
-                    <span class="text">Let theme shine like a star</span>
-                    <small class="badge badge-secondary"><i class="far fa-clock"></i> 1 month</small>
+                    <span class="text">إعداد التقرير الأسبوعي الشامل للمخيم</span>
+                    <small class="badge badge-secondary"><i class="far fa-clock"></i> نهاية الأسبوع</small>
                     <div class="tools">
                       <i class="fas fa-edit"></i>
                       <i class="fas fa-trash-o"></i>
@@ -212,9 +206,8 @@
                   </li>
                 </ul>
               </div>
-              <!-- /.card-body -->
               <div class="card-footer clearfix">
-                <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add item</button>
+                <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> إضافة مهمة</button>
               </div>
             </div>
             

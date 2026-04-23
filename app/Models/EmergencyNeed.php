@@ -18,4 +18,10 @@ class EmergencyNeed extends Model
     {
         return $this->belongsTo(User::class, 'reported_by');
     }
+
+    // العلاقة: هذا الاحتياج يخص مخيم معين
+public function camp()
+{
+    return $this->belongsTo(Camp::class);
+}
 }

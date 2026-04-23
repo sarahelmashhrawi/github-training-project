@@ -10,35 +10,20 @@ use Illuminate\Http\Request;
 
 class IndividualController
 {
-   public function index()
-{
-   // 1. جلب كل الأفراد مع عائلاتهم
-    $individuals = Individual::with('family')->get();
+    public function index()
+    {
+        $individuals = Individual::with('family')->get();
+        $familyHeads = Family::all();
+        return view('individuals.index', compact('individuals', 'familyHeads'));
+    }
 
-    // 2. جلب كل رؤساء العائلات (أرباب الأسر)
-    $familyHeads = Family::all();
-
-    
-    return view('individuals.index', compact('individuals', 'familyHeads'));
-}
-
-    /**
-     * عرض فورم إضافة فرد جديد
-     */
     public function create(Request $request)
     {
-        // نستقبل id العائلة القادم من زر "إضافة فرد" في صفحة العائلة
         $family_id = $request->query('family_id');
-        
-        // نجلب بيانات العائلة لنعرض اسمها في صفحة الإضافة للتأكيد
         $family = Family::findOrFail($family_id);
-
         return view('individuals.create', compact('family'));
     }
 
-    /**
-     * حفظ الفرد الجديد في قاعدة البيانات
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -63,6 +48,7 @@ class IndividualController
             $validatedData['medical_attachment'] = $path;
         }
 
+        // معالجة قيم الـ Boolean
         $validatedData['has_disability'] = $request->has('has_disability') ? 1 : 0;
         $validatedData['has_chronic_disease'] = $request->has('has_chronic_disease') ? 1 : 0;
         $validatedData['is_pregnant'] = $request->has('is_pregnant') ? 1 : 0;
@@ -75,8 +61,13 @@ class IndividualController
 
         Individual::create($validatedData);
 
-        // تعديل: إرجاع JSON ليتوافق مع الـ AJAX
-        return response()->json(['message' => 'تم إضافة الفرد بنجاح!'], 200);
+        // الاستجابة المطلوبة لملف CRUD.js
+        return response()->json([
+            'icon'     => 'success',
+            'title'    => 'تم الحفظ!',
+            'message'  => 'تم إضافة الفرد بنجاح إلى العائلة',
+            'redirect' => url('/families/' . $request->family_id) // التحويل التلقائي لصفحة العائلة
+        ], 200);
     }
 
     public function update(Request $request, Individual $individual)
@@ -92,7 +83,7 @@ class IndividualController
             'disability_type'      => 'required_if:has_disability,1',
             'has_chronic_disease'  => 'boolean',
             'chronic_disease_name' => 'required_if:has_chronic_disease,1',
-'medical_attachment' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
+            'medical_attachment'   => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
             'is_pregnant'          => 'boolean',
             'is_breastfeeding'     => 'boolean',
         ]);
@@ -110,15 +101,14 @@ class IndividualController
         $validatedData['is_pregnant'] = $request->has('is_pregnant') ? 1 : 0;
         $validatedData['is_breastfeeding'] = $request->has('is_breastfeeding') ? 1 : 0;
 
-        if ($validatedData['gender'] === 'male') {
-            $validatedData['is_pregnant'] = 0;
-            $validatedData['is_breastfeeding'] = 0;
-        }
-
         $individual->update($validatedData);
 
-        // تعديل: إرجاع JSON
-        return response()->json(['message' => 'تم تعديل بيانات الفرد بنجاح!'], 200);
+        return response()->json([
+            'icon'     => 'success',
+            'title'    => 'تم التعديل!',
+            'message'  => 'تم تحديث بيانات الفرد بنجاح',
+            'redirect' => url('/families/' . $individual->family_id)
+        ], 200);
     }
 
     public function destroy(Individual $individual)
@@ -129,12 +119,16 @@ class IndividualController
         
         $individual->delete();
 
-        // تعديل: إرجاع JSON ليقوم crud.js بحذف الصف من الجدول في الصفحة
-        return response()->json(['message' => 'تم حذف الفرد بنجاح!'], 200);
+        return response()->json([
+            'icon'    => 'success',
+            'title'   => 'تم الحذف!',
+            'message' => 'تم حذف بيانات الفرد نهائياً'
+        ], 200);
     }
 
-public function edit($id)
+    public function edit($id)
     {
         $individual = Individual::findOrFail($id);
-        
-return view('individuals.edit', compact('individual'));    }}
+        return view('individuals.edit', compact('individual'));
+    }
+}

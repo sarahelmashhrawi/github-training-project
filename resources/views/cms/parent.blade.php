@@ -201,6 +201,31 @@
               <p style="margin: 0;">إدارة مساعدات الخيام</p>
             </a>
           </li>
+            <li class="nav-item">
+    <a href="{{ route('receivings.index') }}" class="nav-link {{ request()->routeIs('receivings.*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-shuttle-van text-success"></i>
+        <p>إدارة الاستلامات</p>
+    </a>
+</li>
+ <li class="nav-item">
+    <a href="{{ route('inventories.index') }}" class="nav-link {{ request()->routeIs('inventory.*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-warehouse"></i>
+        <p>إدارة المخزن</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('emergency_needs.index') }}" class="nav-link {{ request()->routeIs('emergency_needs.*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-exclamation-triangle text-danger"></i>
+        <p>الاحتياجات الطارئة</p>
+    </a>
+</li>
+<li class="nav-item mt-1">
+            <a href="{{ route('camps.index') }}" class="nav-link d-flex align-items-center">
+              <i class="nav-icon fas fa-campground" style="margin-left: 10px; margin-right: 0;"></i>
+              <p style="margin: 0;">إدارة المخيمات</p>
+            </a>
+          </li>
+
 
           <hr style="border-top: 1px solid #4f5962; width: 80%; margin: 15px auto;">
 

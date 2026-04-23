@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
 use App\Models\Receiving;
 use App\Models\Family;
 use App\Models\Inventory;
 use App\Models\Campaign;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ReceivingController 
@@ -18,8 +18,8 @@ class ReceivingController
     }
 
     public function create() {
-        $families = Family::all();
-        $inventories = Inventory::where('available_quantity', '>', 0)->get();
+       $families = Family::all();
+        $inventories = Inventory::where('quantity_available', '>', 0)->get();
         $campaigns = Campaign::all();
         return view('receivings.create', compact('families', 'inventories', 'campaigns'));
     }
@@ -51,5 +51,4 @@ class ReceivingController
         return redirect()->route('receivings.index')->with('success', 'تم إلغاء الاستلام وإرجاع الكمية للمخزن');
     }
     
-    // Edit في الاستلام غالباً ما بنعمله عشان الرقابة المالية، الحذف والإضافة أضمن.
 }

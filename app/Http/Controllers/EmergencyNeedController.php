@@ -3,52 +3,98 @@
 namespace App\Http\Controllers;
 
 use App\Models\EmergencyNeed;
-use App\Models\Tent;
+use App\Models\Family;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class EmergencyNeedController 
 {
-    public function index() {
-        $needs = EmergencyNeed::with('tent')->latest()->get();
+    public function index()
+    {
+        // جلب البيانات مع العائلات والخيام المرتبطة بها
+        $needs = EmergencyNeed::with('family.tent')->latest()->get();
         return view('emergency_needs.index', compact('needs'));
     }
 
-    public function create() {
-        $tents = Tent::all(); 
-        return view('emergency_needs.create', compact('tents'));
+    public function create()
+    {
+        // جلب العائلات لعرضها في قائمة الاختيار
+        $families = Family::all();
+        return view('emergency_needs.create', compact('families'));
     }
 
-    public function store(Request $request) {
-        $data = $request->validate([
-            'item_name'     => 'required|string|max:255',
-            'quantity'      => 'required|integer|min:1',
-            'urgency_level' => 'required|in:low,medium,high,critical',
-            'tent_id'       => 'required|exists:tents,id',
+    public function store(Request $request)
+    {
+       $validator = Validator($request->all(), [
+            'family_id' => 'required|exists:families,id',
+            'type_of_need' => 'required|string',
+            'urgency_level' => 'required|in:critical,high,medium,low', 
+            'description' => 'nullable|string',
         ]);
 
-        EmergencyNeed::create($data);
-        return redirect()->route('emergency-needs.index')->with('success', 'تم تسجيل الاحتياج بنجاح');
+        if ($validator->fails()) {
+            return response()->json([
+                'icon'  => 'error',
+                'title' => 'خطأ في البيانات',
+                'text'  => $validator->getMessageBag()->first()
+            ], 400);
+        }
+
+        $need = new EmergencyNeed();
+        $need->family_id = $request->input('family_id');
+        $need->type_of_need = $request->input('type_of_need');
+        $need->urgency_level = $request->input('urgency_level');
+        $need->description = $request->input('description');
+        $need->status = 'pending';
+        $need->reported_by = Auth::id(); 
+        
+        $isSaved = $need->save();
+
+        return response()->json([
+            'icon'  => $isSaved ? 'success' : 'error',
+            'title' => $isSaved ? 'رائع' : 'فشل',
+            'text'  => $isSaved ? 'تم تسجيل الاحتياج بنجاح' : 'فشلت عملية التسجيل',
+        ], $isSaved ? 200 : 400);
     }
+    public function edit($id)
+{
+    $need = EmergencyNeed::findOrFail($id);
+    $families = Family::all();
+    return view('emergency_needs.edit', compact('need', 'families'));
+}
+public function update(Request $request, $id)
+{
+    $validator = Validator($request->all(), [
+        'family_id' => 'required',
+        'type_of_need' => 'required',
+        'urgency_level' => 'required',
+        'status' => 'required',
+    ]);
 
-    public function edit(EmergencyNeed $emergencyNeed) {
-        $tents = Tent::all();
-        return view('emergency_needs.edit', compact('emergencyNeed', 'tents'));
+    if (!$validator->fails()) {
+        $need = EmergencyNeed::findOrFail($id);
+        $need->family_id = $request->input('family_id');
+        $need->type_of_need = $request->input('type_of_need');
+        $need->urgency_level = $request->input('urgency_level');
+        $need->status = $request->input('status');
+        $need->description = $request->input('description');
+        $isSaved = $need->save();
+
+        return response()->json([
+            'icon' => $isSaved ? 'success' : 'error',
+            'title' => $isSaved ? 'رائع' : 'فشل',
+            'text' => $isSaved ? 'تم تحديث البلاغ بنجاح' : 'فشل التحديث'
+        ], $isSaved ? 200 : 400);
     }
+}
 
-    public function update(Request $request, EmergencyNeed $emergencyNeed) {
-        $data = $request->validate([
-            'item_name'     => 'required|string|max:255',
-            'quantity'      => 'required|integer|min:1',
-            'urgency_level' => 'required|string',
-            'tent_id'       => 'required|exists:tents,id',
-        ]);
-
-        $emergencyNeed->update($data);
-        return redirect()->route('emergency-needs.index')->with('success', 'تم تحديث البيانات');
-    }
-
-    public function destroy(EmergencyNeed $emergencyNeed) {
-        $emergencyNeed->delete();
-        return redirect()->route('emergency-needs.index')->with('success', 'تم حذف الطلب');
+    public function destroy($id)
+    {
+        $deleted = EmergencyNeed::destroy($id);
+        return response()->json([
+            'icon' => $deleted ? 'success' : 'error',
+            'title' => $deleted ? 'تم الحذف بنجاح' : 'فشل الحذف'
+        ], $deleted ? 200 : 400);
     }
 }

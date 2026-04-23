@@ -236,5 +236,8 @@ function storeIndividual() {
     
     performStore('/individuals', formData, '/families/' + family_id); 
 }
+
+ 
+</script>
 </script>
 @endsection
