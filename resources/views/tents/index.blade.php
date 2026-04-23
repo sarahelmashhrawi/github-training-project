@@ -32,8 +32,14 @@
                     <tr>
                         <td class="fw-bold text-success">{{ $tent->tent_number }}</td>
                     
-                        <td><i class="fas fa-map-marker-alt text-danger me-1"></i> {{ $tent->sector->name ?? 'غير محددة' }}</td>
-                        <td>
+<td>
+    <i class="fas fa-map-marker-alt text-danger me-1"></i> 
+    {{ $tent->sector->name ?? 'غير محددة' }}
+    
+    @if($tent->sector && $tent->sector->description)
+        <small class="text-muted">({{ $tent->sector->description }})</small>
+    @endif
+</td>                        <td>
                             <span class="badge px-3 py-2 rounded-pill 
                                 {{ $tent->condition == 'good' ? 'bg-success' : 
                                    ($tent->condition == 'worn' ? 'bg-warning' : 
