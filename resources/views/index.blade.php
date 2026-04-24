@@ -259,10 +259,10 @@
         if (!canvas) return;
 
         const ctx = canvas.getContext('2d');
-        const cCount = {{ (int)($childrenCount ?? 0) }};
-        const yCount = {{ (int)($youthCount ?? 0) }};
-        const wCount = {{ (int)($womenCount ?? 0) }};
-        const eCount = {{ (int)($eldersCount ?? 0) }};
+        const cCount = `{{ (int)($childrenCount ?? 0) }}`;
+        const yCount = `{{ (int)($youthCount ?? 0) }}`;
+        const wCount = `{{ (int)($womenCount ?? 0) }}`;
+        const eCount = `{{ (int)($eldersCount ?? 0) }}`;
 
         new Chart(ctx, {
             type: 'doughnut',

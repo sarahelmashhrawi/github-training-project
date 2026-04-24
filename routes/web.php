@@ -60,7 +60,10 @@ Route::middleware('auth')->group(function () {
     
     Route::post('/profile/avatar', [UserController::class, 'updateAvatar'])->name('profile.avatar');
     Route::post('/update-avatar', [UserController::class, 'updateAvatar']);
-    Route::delete('/delete-avatar', [UserController::class, 'deleteAvatar']);
+    // Route::post('/individuals_update/{id}', [IndividualController::class, 'update'])->name('individuals_update');
+// Route::post('/individuals_update/{individual}', [IndividualController::class, 'update'])->name('individuals_update');
+Route::put('/individuals_update/{id}', [IndividualController::class, 'update'])->name('individuals_update');   
+Route::delete('/delete-avatar', [UserController::class, 'deleteAvatar']);
     
     // مسارات مخصصة
     Route::get('/individuals-edit/{id}', [IndividualController::class, 'edit'])->name('individuals.edit');

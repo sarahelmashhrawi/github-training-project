@@ -10,7 +10,7 @@
 @section('content')
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-12 col-lg-10"> {{-- عدلت الـ 20 لـ 10 لأن 20 خارج حدود بوتستراب --}}
+        <div class="col-12 col-lg-10"> 
             <div class="card edit-card">
                 <div class="edit-header text-center">
                     <h3>⚙️ تعديل بيانات المنطقة</h3>
@@ -67,15 +67,17 @@
 
 @section('scripts')
 <script>
-    function updateSector() {
-        let data = {
-            name: document.getElementById('sectorName').value,
-            description: document.getElementById('description').value,
-            supervisor_id: document.getElementById('supervisor_id').value
-        };
+  
 
-        let url = "{{ route('sectors.update', $sector->id) }}";
-        performUpdate(url, data);
-    }
+    function updateTent(url) {
+    let data = {
+        sector_id: document.getElementById('sector_id').value,
+        tent_number: document.getElementById('tent_number').value,
+        condition: document.getElementById('condition').value,
+        capacity: document.getElementById('capacity').value
+    };
+
+    performUpdate(url, data);
+}
 </script>
 @endsection

@@ -58,7 +58,7 @@
                                 <a href="{{ route('tents.edit', $tent->id) }}" class="btn btn-sm btn-outline-warning border-0">
                                     <i class="fas fa-edit fa-lg"></i>
                                 </a>
-                                <button type="button" onclick="confirmDestroy('{{ route('tents.destroy', $tent->id) }}', this)" 
+                                <button type="button" onclick="confirmDestroy(`{{ route('tents.destroy', $tent->id) }}`, this)" 
                                         class="btn btn-sm btn-outline-danger border-0">
                                     <i class="fas fa-trash-alt fa-lg"></i>
                                 </button>

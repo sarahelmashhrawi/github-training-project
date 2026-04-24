@@ -24,6 +24,9 @@ class IndividualController
         return view('individuals.create', compact('family'));
     }
 
+    /**
+     * حفظ الفرد الجديد - متوافق مع performStore
+     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([

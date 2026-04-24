@@ -27,18 +27,70 @@ function performStore(url, data) {
         });
 }
 
-function performUpdate(url, data) {
-    data._method = 'PUT'; 
-    axios.post(url, data)
+// function performUpdate(url, data) {
+//     data._method = 'PUT'; 
+//     axios.post(url, data)
+//         .then(function (response) {
+//             Swal.fire({
+//                 icon: response.data.icon || 'success',
+//                 title: response.data.title || 'تم التعديل!',
+//                 text: response.data.text || response.data.message,
+//                 showConfirmButton: false,
+//                 timer: 1500
+//             });
+//             // توجيه ديناميكي
+//             if (response.data.redirect) {
+//                 setTimeout(() => { window.location.href = response.data.redirect; }, 1500);
+//             }
+//         })
+//         .catch(function (error) {
+//             Swal.fire({ 
+//                 icon: 'error', 
+//                 title: 'فشل التحديث', 
+//                 text: error.response.data.message 
+//             });
+//         });
+// }
+// function performUpdate(url, formData) {
+//     // التصحيح هنا: استخدم append بدلاً من الإسناد المباشر
+//     formData.append('_method', 'PUT'); 
+
+//     axios.post(url, formData)
+//         .then(function (response) {
+//             Swal.fire({
+//                 icon: response.data.icon || 'success',
+//                 title: response.data.title || 'تم التعديل!',
+//                 text: response.data.text || response.data.message,
+//                 showConfirmButton: false,
+//                 timer: 1500
+//             });
+//             // توجيه ديناميكي
+//             if (response.data.redirect) {
+//                 setTimeout(() => { window.location.href = response.data.redirect; }, 1500);
+//             }
+//         })
+//         .catch(function (error) {
+//             Swal.fire({ 
+//                 icon: 'error', 
+//                 title: 'فشل التحديث', 
+//                 text: error.response?.data?.message || 'حدث خطأ غير متوقع' 
+//             });
+//         });
+// }
+function performUpdate(url, formData) {
+    // إضافة الـ PUT method ليفهم لارافيل أننا نقوم بعملية تحديث
+    formData.append('_method', 'PUT'); 
+
+    axios.post(url, formData)
         .then(function (response) {
             Swal.fire({
                 icon: response.data.icon || 'success',
                 title: response.data.title || 'تم التعديل!',
-                text: response.data.text || response.data.message,
+                text: response.data.message, // تم التعديل لتطابق الكنترولر
                 showConfirmButton: false,
                 timer: 1500
             });
-            // توجيه ديناميكي
+            // توجيه ديناميكي لصفحة العائلة كما برمجتها في الكنترولر
             if (response.data.redirect) {
                 setTimeout(() => { window.location.href = response.data.redirect; }, 1500);
             }
@@ -47,11 +99,10 @@ function performUpdate(url, data) {
             Swal.fire({ 
                 icon: 'error', 
                 title: 'فشل التحديث', 
-                text: error.response.data.message 
+                text: error.response?.data?.message || 'تأكد من إدخال جميع البيانات المطلوبة بشكل صحيح' 
             });
         });
 }
-
 function confirmDestroy(url, reference) {
     Swal.fire({
         title: 'هل أنت متأكد؟',
@@ -233,3 +284,4 @@ function addNewEvent() {
         }
     });
 }
+

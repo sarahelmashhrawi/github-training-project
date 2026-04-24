@@ -64,9 +64,12 @@
                         </div>
                     </div>
 
-                    <button type="button" onclick="updateTent('{{ route('tents.update', $tent->id) }}')" class="btn btn-update w-100">
+                    <button type="button" onclick="updateTent(`{{ route('tents.update', $tent->id) }}`)" class="btn btn-update w-100">
                         <i class="fas fa-save me-1"></i> حفظ التغييرات
-                    </button>
+                   
+                  
+              </button>
+
                 </form>
             </div>
         </div>

@@ -138,7 +138,7 @@
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     
-                                    <button type="button" class="delete-icon action-icon" onclick="confirmDestroy('{{ route('campaigns.destroy', $campaign->id) }}', this)" title="حذف">
+                                    <button type="button" class="delete-icon action-icon" onclick="confirmDestroy(`{{ route('campaigns.destroy', $campaign->id) }}`, this)" title="حذف">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </td>

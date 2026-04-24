@@ -88,41 +88,71 @@
 
 @section('scripts')
 <script>
-    function performUpdate() {
-        let data = {
-            item_name: document.getElementById('item_name').value,
-            category: document.getElementById('category').value,
-            type: document.getElementById('type').value,
-            condition: document.getElementById('condition').value,
-            total_quantity: document.getElementById('total_quantity').value,
-            quantity_available: document.getElementById('quantity_available').value,
-            storage_location: document.getElementById('storage_location').value,
-            _method: 'PUT' 
-        };
+  function updateIndividual(id) {
+    // 1. تجهيز البيانات باستخدام FormData (لأن الكود يحتوي على ملفات)
+    let formData = new FormData();
 
-        axios.post('/inventories/{{ $inventory->id }}', data)
-            .then(function (response) {
-    Swal.fire({
-        icon: 'success',
-        title: 'تم بنجاح',
-        text: response.data.text,
-        showConfirmButton: false, 
-        timer: 2000 
-    });
+    formData.append('full_name', document.getElementById('full_name').value);
+    formData.append('id_number', document.getElementById('id_number').value);
+    formData.append('relation_to_head', document.getElementById('relation_to_head').value);
+    formData.append('dob', document.getElementById('dob').value);
+    formData.append('gender', document.getElementById('gender').value);
 
-    setTimeout(function() {
-        window.location.href = "/inventories";
-    }, 2000); 
-})
-            
-            .catch(function (error) {
-                // فشل
-                Swal.fire({
-                    icon: 'error',
-                    title: 'خطأ',
-                    text: error.response.data.message || 'حدث خطأ أثناء التعديل'
-                });
-            });
+    // الحالة الصحية والإعاقة
+    let hasDisability = document.getElementById('has_disability').checked ? 1 : 0;
+    formData.append('has_disability', hasDisability);
+    formData.append('disability_type', document.getElementById('disability_type').value);
+
+    let hasChronicDisease = document.getElementById('has_chronic_disease').checked ? 1 : 0;
+    formData.append('has_chronic_disease', hasChronicDisease);
+    formData.append('chronic_disease_name', document.getElementById('chronic_disease_name').value);
+
+    // الحوامل والمرضعات
+    if (document.getElementById('is_pregnant')) {
+        formData.append('is_pregnant', document.getElementById('is_pregnant').checked ? 1 : 0);
     }
+    if (document.getElementById('is_breastfeeding')) {
+        formData.append('is_breastfeeding', document.getElementById('is_breastfeeding').checked ? 1 : 0);
+    }
+
+    // المرفق الطبي
+    let fileInput = document.getElementById('medical_attachment');
+    if (fileInput && fileInput.files.length > 0) {
+        formData.append('medical_attachment', fileInput.files[0]);
+    }
+
+    // إضافة Method Spoofing ليتعرف Laravel أنها عملية تحديث
+    formData.append('_method', 'PUT');
+
+    // 2. الإرسال باستخدام Axios
+    axios.post('/individuals_update/' + id, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+    .then(function (response) {
+        // نجاح العملية
+        Swal.fire({
+            icon: 'success',
+            title: 'تم بنجاح',
+            text: response.data.message || 'تم تحديث بيانات الفرد بنجاح',
+            showConfirmButton: false,
+            timer: 2000
+        });
+
+        // إعادة التوجيه بعد ثانيتين (نفس نظام الكود الأول)
+        setTimeout(function() {
+            window.location.href = "{{ route('families.show', $individual->family_id) }}";
+        }, 2000);
+    })
+    .catch(function (error) {
+        // فشل العملية
+        Swal.fire({
+            icon: 'error',
+            title: 'خطأ',
+            text: error.response.data.message || 'حدث خطأ أثناء التعديل'
+        });
+    });
+}
 </script>
 @endsection

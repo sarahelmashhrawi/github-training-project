@@ -72,7 +72,7 @@
     </div>
     <div id="disability_section" 
     class="mt-2 p-2 border rounded bg-light"
-     style="display: {{ $individual->has_disability ? 'block' : 'none' }};">
+     style="display: '{{ $individual->has_disability ? 'block' : 'none' }};">
         <label class="form-label font-weight-bold text-primary small">نوع الإعاقة:</label>
         <select name="disability_type" class="form-select">
             <option value="" disabled {{ !$individual->disability_type ? 'selected' : '' }}>اختر نوع الإعاقة...</option>
@@ -84,7 +84,7 @@
 </div>
 
 <div class="form-group col-md-6">
-    <div class="form-check mb-2" style="display: flex !important; align-items: center !important; gap: 10px !important; padding-left: 0 !important; margin-bottom: 10px;">
+    <div class="form-check mb-2" style= " display: flex !important; align-items: center !important; gap: 10px !important; padding-left: 0 !important; margin-bottom: 10px;">
         <input type="checkbox" class="form-check-input" id="has_chronic_disease" name="has_chronic_disease" value="1" {{ $individual->has_chronic_disease ? 'checked' : '' }} onchange="document.getElementById('chronic_disease_section').style.display = this.checked ? 'block' : 'none';" style="position: static !important; margin: 0 !important;">
         <label class="form-check-label" for="has_chronic_disease" style="margin: 0 !important; cursor: pointer; font-weight: bold;">هل يعاني الفرد من أمراض مزمنة؟</label>
     </div>
@@ -116,36 +116,39 @@
 
 @section('scripts')
     <script>
-        function updateIndividual(id) {
-            let formData = new FormData(document.getElementById('edit-form'));
-            
-            let fileInput = document.getElementById('medical_attachment');
-            if (!fileInput.files || fileInput.files.length === 0) {
-                formData.delete('medical_attachment');
-            }
+function updateIndividual(id) {
+    let formData = new FormData();
 
-            formData.append('_method', 'PUT');
+    // 1. البيانات الأساسية (تأكد أن الـ IDs مطابقة لما في الـ HTML)
+    formData.append('full_name', document.getElementById('full_name').value);
+    formData.append('id_number', document.getElementById('id_number').value);
+    formData.append('relation_to_head', document.getElementById('relation_to_head').value);
+    formData.append('dob', document.getElementById('dob').value || '');
+    formData.append('gender', document.getElementById('gender').value);
 
-            axios.post('/individuals/' + id, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            })
-            .then(function (response) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'تم التعديل!',
-                    text: response.data.message,
-                    timer: 1500
-                }).then(() => {
-                    window.location.href = "{{ route('families.show', $individual->family_id) }}";
-                });
-            })
-            .catch(function (error) {
-                Swal.fire({ 
-                    icon: 'error', 
-                    title: 'خطأ', 
-                    text: error.response?.data?.message || 'حدث خطأ'
-                });
-            });
-        }
-    </script>
+    // 2. إجبار مربعات الاختيار على إرسال 1 أو 0 ليقبلها الـ Laravel
+    formData.append('has_disability', document.getElementById('has_disability').checked ? 1 : 0);
+    formData.append('disability_type', document.getElementById('disability_type').value || '');
+
+    formData.append('has_chronic_disease', document.getElementById('has_chronic_disease').checked ? 1 : 0);
+    formData.append('chronic_disease_name', document.getElementById('chronic_disease_name').value || '');
+
+    // الحوامل والمرضعات
+    if (document.getElementById('is_pregnant')) {
+        formData.append('is_pregnant', document.getElementById('is_pregnant').checked ? 1 : 0);
+    }
+    if (document.getElementById('is_breastfeeding')) {
+        formData.append('is_breastfeeding', document.getElementById('is_breastfeeding').checked ? 1 : 0);
+    }
+
+    // 3. المرفق الطبي
+    let fileInput = document.getElementById('medical_attachment');
+    if (fileInput && fileInput.files.length > 0) {
+        formData.append('medical_attachment', fileInput.files[0]);
+    }
+
+    // 4. الإرسال لدالتك المركزية
+    let url = '/individuals_update/' + id;
+    performUpdate(url, formData);
+}    </script>
 @endsection

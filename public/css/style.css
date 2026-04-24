@@ -150,7 +150,6 @@ body { text-align: right; }
     left: 15px; 
     z-index: 0;
 }
-    /* 1. نقل الأيقونة الخلفية إلى أقصى اليسار لمنع التداخل */
     .small-box .icon {
         left: 10px !important;
         right: auto !important;
@@ -163,18 +162,17 @@ body { text-align: right; }
         right: auto !important;
     }
 
-    /* 2. محاذاة الأرقام والنصوص لليمين وإبعادها عن الأيقونة */
+    /* محاذاة الأرقام والنصوص لليمين وإبعادها عن الأيقونة */
     .small-box .inner {
         text-align: right !important; 
         position: relative;
         z-index: 10; /* لجعل النص فوق أي شيء */
     }
 
-    /* 3. تجميل الكلمات (إجمالي النازحين، الخيم...) وتوضيح لونها */
     .small-box .inner p {
-        color: #ffffff !important; /* لون أبيض ناصع ليبرز على الخلفية الملونة */
-        font-weight: 900 !important; /* خط عريض جداً */
-        font-size: 1.3rem !important; /* تكبير حجم الكلمة قليلاً */
+        color: #ffffff !important; 
+        font-weight: 900 !important; 
+        font-size: 1.3rem !important; 
         margin-top: 5px;
     }
 
@@ -254,7 +252,7 @@ button.btn-primary h2 {
 	background-color:#f9f9f9;
 	color:#000;
 	padding:60px;
-	margin-top:;
+	/* margin-top:; */
 	margin-bottom:30px;
 	border-bottom: 30px solid transparent;
 	border-color:#50c0e9;
@@ -274,7 +272,6 @@ button.btn-primary h2 {
 	color:#50c0e9;
 }
 
-/* --- About --- */
 .row-slider {
 	margin-bottom:50px;
 }
@@ -685,9 +682,9 @@ footer ul.link-list li a:hover {
 footer .widget ul li a {
 	color:#000;
 }
-/* =========================================
-   1. الإعدادات العامة لاتجاه الصفحة (RTL)
-========================================= */
+/* 
+(RTL)
+ */
 
 .main-sidebar {
     right: 0 !important;
@@ -701,9 +698,9 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
     margin-left: 0 !important;
 }
 
-/* =========================================
-   2. تنسيقات القائمة الجانبية (Sidebar)
-========================================= */
+/* 
+    تنسيقات القائمة الجانبية 
+ */
 
 .main-sidebar .brand-text, 
 .main-sidebar .user-panel .info a { 
@@ -731,7 +728,7 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
     color: #39eb58 !important;
 }
 
-/* --- إصلاحات الأسهم والأيقونات (RTL Fix) --- */
+/* --- (RTL Fix) --- */
 .nav-sidebar .nav-link > i {
     margin-right: 0 !important;
     margin-left: 0.5rem !important;
@@ -756,9 +753,9 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
     transform: rotate(270deg);
 }
 
-/* =========================================
-   3. تنسيقات لوحة التحكم (Dashboard)
-========================================= */
+/* 
+   3. تنسيقات (Dashboard)
+ */
 
 .small-box .icon { 
     left: 20px !important; 
@@ -769,9 +766,9 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
     padding-right: 20px; 
 }
 
-/* =========================================
-   4. تنسيقات التقويم (Calendar)
-========================================= */
+/* 
+   4. تنسيقات  (Calendar)
+ */
 
 #calendar .datetimepicker-widget table { 
     width: 100%; 
@@ -787,9 +784,7 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
     font-size: 1.1rem !important; 
 }
 
-/* =========================================
-   5. تنسيقات البطاقات (تعديلات جذريّة لإزالة الأصفر)
-========================================= */
+
 
 body { 
     font-family: 'Cairo', sans-serif; 
@@ -801,46 +796,41 @@ body {
     border-radius: 20px; 
     box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
     overflow: hidden; 
-    background-color: #ffffff; /* خلفية بيضاء */
+    background-color: #ffffff; 
 }
 
-/* تعديل هيدر البطاقات: أبيض مع نص أسود */
 .card-header { 
     border: none; 
     padding: 20px; 
-    background-color: #ffffff !important; /* تغيير من التدرج الأصفر إلى أبيض */
-    color: #333333 !important;           /* نص أسود */
+    background-color: #ffffff !important; 
+    color: #333333 !important;           
     border-bottom: 1px solid #eeeeee;
 }
 
-/* تعديل حقول الإدخال */
 /* تعديل حقول الإدخال و الـ Dropdown لضبط تمركز النص */
 .form-select, .form-control { 
     border-radius: 10px; 
     border: 1px solid #ddd; 
-    padding: 10px 15px !important; /* تقليل البادينج العلوي قليلاً */
+    padding: 10px 15px !important; 
     font-size: 16px !important; 
     font-weight: bold !important; 
     color: #000000 !important; 
     background-color: #ffffff !important; 
     
-    /* الحل الجذري لمشكلة النص الغاطس */
     line-height: 1.5 !important; 
-    height: calc(2.25rem + 12px) !important; /* إعطاء ارتفاع ثابت متناسب مع الخط */
+    height: calc(2.25rem + 12px) !important; 
     display: flex;
     align-items: center;
 }
 
-/* إصلاح خاص للـ Select (الدروب داون) */
 select.form-select {
     padding-top: 8px !important;
     padding-bottom: 8px !important;
     appearance: none; /* لإلغاء أي تنسيق افتراضي للمتصفح قد يزيح النص */
 }
 
-/* تعديل زر الحفظ (إزالة اللون الأصفر) */
 .btn-update { 
-    background: #28a745; /* لون أخضر هادئ */
+    background: #28a745; 
     border: none; 
     border-radius: 10px; 
     padding: 10px 30px; 
@@ -852,7 +842,6 @@ select.form-select {
     background: #218838; 
 }
 
-/* تعديل التركيز (Focus) - إطار أخضر بدلاً من الأصفر */
 .form-control:focus, .form-select:focus { 
     box-shadow: 0 0 10px rgba(40, 167, 69, 0.2); 
     border-color: #28a745; 
@@ -868,21 +857,18 @@ select.form-select {
     color: #212529 !important;
 }
 
-/* إجبار إزالة أي خلفية صفراء مفروضة من القالب */
 .bg-warning, .card-warning {
     background-color: #ffffff !important;
     background: #ffffff !important;
     color: #333 !important;
 }
 
-/* إرجاع اللون الأورنج لصندوق العائلات */
 .small-box.bg-warning, 
-.small-box.family-widget { /* استبدلي family-widget بالكلاس الخاص بصندوق العائلات */
+.small-box.family-widget { 
     background-color: #ffc107 !important;
     color: #928989 !important;
 }
 
-/* التأكد من أن النصوص داخل الصندوق تظهر باللون الأبيض فوق الأورنج */
 .small-box.bg-warning .inner h3,
 .small-box.bg-warning .inner p,
 .small-box.bg-warning .icon i {
@@ -892,6 +878,6 @@ select.form-select {
 .small-box.bg-warning .icon i, 
 .small-box.bg-warning .icon .fas, 
 .small-box.bg-warning .icon .far {
-    color: #212529 !important; /* لون رمادي غامق جداً (شبه أسود) احترافي */
-    opacity: 0.8;             /* شفافية بسيطة لدمج الأيقونة مع الخلفية */
+    color: #212529 !important; 
+    opacity: 0.8;             
 }
