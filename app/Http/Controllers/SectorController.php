@@ -25,8 +25,10 @@ class SectorController
      */
    public function create()
 {
-    $users = User::where('role', 'sector_supervisor')->get(); 
-        
+   // جلب كل المستخدمين الذين نريدهم أن يظهروا كمشرفين
+    $users = \App\Models\User::all(); 
+
+    // فتح الواجهة وإرسال المتغير لها
     return view('sectors.create', compact('users'));
 }
 
@@ -53,16 +55,26 @@ public function store(Request $request) {
 
 public function edit(Sector $sector)
 {
-             $users = User::where('role', 'sector_supervisor')->get();
-             return view('sectors.edit', compact('sector', 'users'));
+            $users = \App\Models\User::all(); 
+    
+    return view('sectors.edit', compact('sector', 'users'));
 }
 
 
 public function update(Request $request, Sector $sector)
 {
-    $request->validate(['name' => 'required']);
+   // 1. التحقق من البيانات
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'location' => 'nullable|string',
+        'supervisor_id' => 'required|exists:users,id',
+    ]);
+
+    // 2. تحديث البيانات في قاعدة البيانات
     $sector->update($request->all());
-    return redirect()->route('sectors.index')->with('success', 'تم تحديث بيانات المنطقة');
+
+    // 3. إعادة التوجيه لصفحة العرض مع رسالة نجاح خضراء
+    return redirect()->route('sectors.index')->with('success', 'تم تحديث بيانات المنطقة بنجاح!');
 }
     /**
      * Remove the specified resource from storage.

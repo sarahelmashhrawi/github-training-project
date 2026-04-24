@@ -10,7 +10,7 @@
 @section('content')
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-12 col-lg-10"> 
+        <div class="col-12 col-lg-10"> {{-- عدلت الـ 20 لـ 10 لأن 20 خارج حدود بوتستراب --}}
             <div class="card edit-card">
                 <div class="edit-header text-center">
                     <h3>⚙️ تعديل بيانات المنطقة</h3>
@@ -67,17 +67,40 @@
 
 @section('scripts')
 <script>
-  
 
-    function updateTent(url) {
-    let data = {
-        sector_id: document.getElementById('sector_id').value,
-        tent_number: document.getElementById('tent_number').value,
-        condition: document.getElementById('condition').value,
-        capacity: document.getElementById('capacity').value
-    };
+  function updateSector() {
+ let data = {
+            name: document.getElementById('sectorName').value,
+            description: document.getElementById('description').value,
+            supervisor_id: document.getElementById('supervisor_id').value,
+           
+            _method: 'PUT' 
+        };
 
-    performUpdate(url, data);
-}
+        axios.post('/sectors/{{ $sector->id }}', data)
+            .then(function (response) {
+    Swal.fire({
+        icon: 'success',
+        title: 'تم بنجاح',
+        text: response.data.text,
+        showConfirmButton: false, 
+        timer: 2000 
+    });
+
+    setTimeout(function() {
+        window.location.href = "/sectors";
+    }, 2000); 
+})
+            
+            .catch(function (error) {
+                // فشل
+                Swal.fire({
+                    icon: 'error',
+                    title: 'خطأ',
+                    text: error.response.data.message || 'حدث خطأ أثناء التعديل'
+                });
+            });
+    }
+    
 </script>
 @endsection

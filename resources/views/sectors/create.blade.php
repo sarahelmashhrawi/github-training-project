@@ -3,8 +3,7 @@
 @section('title', 'إضافة منطقة جديدة')
 
 @section('styles')
-    {{-- تفعيل رابط الـ CSS وتمرير الوقت لمنع الكاش --}}
-    <link rel="stylesheet" href="{{ asset('css/sectors/create.css') }}?v={{ time() }}">
+\    <link rel="stylesheet" href="{{ asset('css/sectors/create.css') }}?v={{ time() }}">
 @endsection
 
 @section('content')

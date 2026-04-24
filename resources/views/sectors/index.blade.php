@@ -8,6 +8,12 @@
 
 @section('content')
     <div class="container mt-5">
+        @if(session('success'))
+    <div class="alert alert-success shadow-sm" style="border-radius: 10px; border: none; background-color: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px;">
+        <i class="fas fa-check-circle ml-2"></i>
+        {{ session('success') }}
+    </div>
+@endif
         <div class="card p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3 class="fw-bold text-dark m-0">📍 قائمة المناطق</h3>
@@ -50,7 +56,7 @@
                                 <i class="fa fa-edit"></i> تعديل
                             </a>
                             
-                            <button type="button" onclick="confirmDestroy('{{ route('sectors.destroy', $sector->id) }}', this)" class="btn btn-danger btn-sm px-3">
+                            <button type="button" onclick="confirmDestroy(`{{ route('sectors.destroy', $sector->id) }}`, this)" class="btn btn-danger btn-sm px-3">
                                 <i class="fa fa-trash"></i> حذف
                             </button>
                         </td>

@@ -62,14 +62,43 @@ Route::middleware('auth')->group(function () {
     Route::post('/update-avatar', [UserController::class, 'updateAvatar']);
     // Route::post('/individuals_update/{id}', [IndividualController::class, 'update'])->name('individuals_update');
 // Route::post('/individuals_update/{individual}', [IndividualController::class, 'update'])->name('individuals_update');
-Route::put('/individuals_update/{id}', [IndividualController::class, 'update'])->name('individuals_update');   
-Route::delete('/delete-avatar', [UserController::class, 'deleteAvatar']);
+Route::post('/profile/avatar', [UserController::class, 'updateAvatar'])->name('profile.avatar');
+
+
+Route::put('/admin/password/update', [UserController::class, 'updatePassword'])->name('password.update');Route::delete('/delete-avatar', [UserController::class, 'deleteAvatar']);
     
     // مسارات مخصصة
     Route::get('/individuals-edit/{id}', [IndividualController::class, 'edit'])->name('individuals.edit');
-    Route::get('sectors/trashed', [SectorController::class, 'trashed'])->name('sectors-trashed');
+    Route::get('sectors-trashed', [SectorController::class, 'trashed'])->name('sectors-trashed');
     Route::get('sectors-restore/{id}', [SectorController::class, 'restore'])->name('sectors-force');
     Route::get('sectors-force/{id}', [SectorController::class, 'restore'])->name('sectors-restore');
     Route::get('cms/gallery', [GalleryController::class, 'index']);
     Route::put('/emergency-needs/{id}', [EmergencyNeedController::class, 'update'])->name('emergency-needs.update');
+    // مسارات العمليات (Update)
+Route::put('/admin/password/update', [UserController::class, 'updatePassword'])->name('password.update');
+Route::put('/admin/profile/update', [UserController::class, 'updateProfile'])->name('admin.profile.update');
+Route::get('/cms/admin/logout', [AuthController::class, 'logout'])->name('cms.admin.logout');
+    // رابط عرض صفحة تعديل كلمة المرور
+Route::get('/admin/password/edit', function () {
+    return view('Admins.editPassword'); 
+})->name('admin.password.edit');
+
+// رابط عرض صفحة تعديل الملف الشخصي
+Route::get('/admin/profile/edit', function () {
+    return view('Admins.editProfile'); 
+})->name('admin.profile.edit');
 });
+//الخروج
+// مسار عرض الصفحة (هذا الذي سيفتح الواجهة)
+Route::get('/admin/logout-page', function () {
+    return view('Admins.logout');
+})->name('admin.logout.confirm');
+
+// مسار تنفيذ الخروج (الذي يستدعي الكنترولر)
+Route::post('/execute-logout', [AuthController::class, 'logout'])->name('logout.final');
+// هذا لفتح الصفحة
+Route::get('/admin/create', [UserController::class, 'create'])->name('admin.create');
+
+// هذا لاستقبال البيانات وحفظها
+Route::post('/admin/store', [UserController::class, 'store'])->name('admin.store');
+Route::delete('/inventories/{inventory}', [InventoryController::class, 'destroy'])->name('inventories.destroy');

@@ -156,4 +156,33 @@
 @endsection
 
 @section('scripts')
+<script>
+    function confirmDestroy(url, reference) {
+        Swal.fire({
+            title: 'هل أنت متأكد؟',
+            text: "لن تتمكن من تراجع عن هذا!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'نعم، احذفه!',
+            cancelButtonText: 'إلغاء'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // إرسال طلب الحذف عبر Axios
+                axios.delete(url)
+                    .then(function (response) {
+                        // هنا السر: إظهار رسالة النجاح الخضراء
+                        Swal.fire(response.data.title, '', response.data.icon);
+                        // حذف السطر من الجدول فوراً بدون ريفرش
+                        reference.closest('tr').remove();
+                    })
+                    .catch(function (error) {
+                        // رسالة الخطأ التي تظهر لكِ حالياً تخرج من هنا
+                        Swal.fire('خطأ!', 'حدث خطأ أثناء الحذف', 'error');
+                    });
+            }
+        })
+    }
+</script>
 @endsection

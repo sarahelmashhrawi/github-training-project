@@ -50,13 +50,13 @@ class AuthController
 
     // 3. تسجيل الخروج
     public function logout(Request $request)
-    {
-        Auth::logout();
-        
-        // تنظيف الجلسة وتجديد التوكن للحماية القصوى
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        
-        return redirect()->route('login');
-    }
+{
+    Auth::logout();
+    
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    
+    // التوجيه لصفحة الـ Welcome الأساسية (التي تفتح أول ما نفتح المشروع)
+    return redirect('/'); 
+}
 }

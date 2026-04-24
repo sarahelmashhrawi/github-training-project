@@ -145,26 +145,31 @@
       <i class="fas fa-angle-left right"></i>
     </p>
   </a>
+  
   <ul class="nav nav-treeview">
     <li class="nav-item">
-      <a href="{{ route('families.create') }}" class="nav-link d-flex align-items-center" style="padding-right: 25px;">
-        <i class="fas fa-key nav-icon text-warning" style="margin-left: 10px; font-size: 14px;"></i>
+<a href="{{ route('admin.password.edit') }}" class="nav-link d-flex align-items-center" style="padding-right: 25px;">        <i class="fas fa-key nav-icon text-warning" style="margin-left: 10px; font-size: 14px;"></i>
         <p>تعديل كلمة المرور</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{ route('tents.create') }}" class="nav-link d-flex align-items-center" style="padding-right: 25px;">
-        <i class="fas fa-user-edit nav-icon text-success" style="margin-left: 10px; font-size: 14px;"></i>
+<a href="{{ route('admin.profile.edit') }}" class="nav-link d-flex align-items-center" style="padding-right: 25px;">        <i class="fas fa-user-edit nav-icon text-success" style="margin-left: 10px; font-size: 14px;"></i>
         <p>تعديل الملف الشخصي</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{ route('sectors.create') }}" class="nav-link d-flex align-items-center" style="padding-right: 25px;">
-        <i class="fas fa-sign-out-alt nav-icon text-danger" style="margin-left: 10px; font-size: 14px;"></i>
-        <p>خروج</p>
-      </a>
+      <a href="{{ route('admin.logout.confirm') }}" class="nav-link">
+    <i class="nav-icon fas fa-sign-out-alt"></i>
+    <p>تسجيل الخروج</p>
+</a>
     </li>
   </ul>
+</li>
+<li class="nav-item">
+    <a href="{{ route('admin.create') }}" class="nav-link">
+        <i class="nav-icon fas fa-user-plus"></i>
+        <p>إضافة مشرف جديد</p>
+    </a>
 </li>
 
 <li class="nav-item mt-1">
@@ -273,16 +278,6 @@
 
           <li class="nav-header mt-3 text-uppercase" style="font-weight: bold; padding-right: 15px;">أمثلة </li>
 
-          {{-- التقويم --}}
-          <li class="nav-item mt-1">
-            <a href="cms/Calendar" class="nav-link d-flex align-items-center">
-              <i class="nav-icon far fa-calendar-alt" style="margin-left: 10px; margin-right: 0;"></i>
-              <p style="margin: 0; width: 100%; display: flex; justify-content: space-between; align-items: center;">
-                <span>التقويم</span>
-                <span class="badge badge-info">2</span>
-              </p>
-            </a>
-          </li>
 
           {{-- معرض الصور --}}
           <li class="nav-item mt-1 mb-3">

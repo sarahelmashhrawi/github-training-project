@@ -82,9 +82,14 @@ class CampaignController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Campaign $campaign)
-    {
-         $campaign->delete();
-        return redirect()->route('campaigns.index')->with('success', 'تم الحذف بنجاح');
-    }
+   public function destroy($id)
+{
+    $item = Campaign::findOrFail($id);
+    $item->delete();
+
+    return response()->json([
+        'icon' => 'success',
+        'title' => 'تم الحذف بنجاح'
+    ], 200); // كود 200 يعني نجاح
+}
 }
