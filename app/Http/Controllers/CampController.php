@@ -67,7 +67,6 @@ class CampController
     // تأكد من جلب السيكتورز من قاعدة البيانات
     $sectors = Sector::all(); 
 
-    // تأكد من تمرير المتغير هنا باستخدام compact أو array
     return view('camps.edit', compact('camp', 'sectors'));
 }
     /**
