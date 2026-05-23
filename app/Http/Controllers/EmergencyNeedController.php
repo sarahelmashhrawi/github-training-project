@@ -96,7 +96,7 @@ public function update(Request $request, $id)
             'text'  => $isSaved ? 'تم تحديث البلاغ بنجاح' : 'فشل التحديث'
         ], $isSaved ? 200 : 400);
 
-    } catch (\Exception $e) {
+    } catch (\Exception $e) {//هذا يسمى معالج الاخطاء اذا حدث اي خطا  تقني مثل انقطاع الاتصال بقاعدة البيانات
         return response()->json([
             'icon'  => 'error',
             'title' => 'خطأ فني',

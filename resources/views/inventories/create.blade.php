@@ -73,7 +73,7 @@
 @section('scripts')
 <script>
     function storeInventory() {
-        let formData = new FormData();
+        let formData = new FormData();//تجميع البيانات من الحقول ووضعها داخل formData
         formData.append('item_name', document.getElementById('item_name').value);
         formData.append('type', document.getElementById('type').value);
         formData.append('category', document.getElementById('category').value);
