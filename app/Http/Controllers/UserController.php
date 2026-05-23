@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
+
 class UserController 
 {
     // 1. تحديث الصورة الشخصية
@@ -64,7 +65,7 @@ class UserController
             'password' => 'required|min:8|confirmed',
         ]);
 
-        $user = User::find(Auth::id());
+        $user = User::find(Auth::id());//جلب بيانات المستخدم الحالي
 
         if (!Hash::check($request->current_password, $user->password)) {
             return back()->withErrors(['current_password' => 'كلمة المرور الحالية غير صحيحة']);

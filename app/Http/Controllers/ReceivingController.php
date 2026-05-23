@@ -27,7 +27,7 @@ public function create()
 }
 public function store(Request $request)
 {
-    // 1. التحقق من البيانات (تأكدي أن الأسماء تطابق الأسماء في قاعدة البيانات)
+    // 1. التحقق من البيانات
     $validator = Validator($request->all(), [
         'family_id'         => 'required|exists:families,id',
         'inventory_id'      => 'required|exists:inventories,id',
@@ -37,13 +37,13 @@ public function store(Request $request)
 
     if (!$validator->fails()) {
         // 2. حفظ البيانات
-        $receiving = new Receiving();
+        $receiving = new Receiving();//انشاء كائن جديد من مودل الاستلام
         $receiving->family_id = $request->input('family_id');
         $receiving->inventory_id = $request->input('inventory_id');
         $receiving->campaign_id = $request->input('campaign_id');
         $receiving->quantity_received = $request->input('quantity_received');
         
-        $isSaved = $receiving->save();
+        $isSaved = $receiving->save();//تقوم بكتابة السطر الجديد في قاعدة البيانات
 
         // 3. إرسال رد لـ JavaScript (عشان تطلع رسالة النجاح)
         return response()->json([
@@ -52,7 +52,7 @@ public function store(Request $request)
         ], $isSaved ? 200 : 400);
         
     } else {
-        // إذا كانت البيانات ناقصة (الرسالة التي تظهر لكِ حالياً)
+        // إذا كانت البيانات ناقصة)
         return response()->json([
             'icon' => 'error',
             'title' => $validator->getMessageBag()->first()
@@ -60,7 +60,6 @@ public function store(Request $request)
     }
 }
     // عرض صفحة التعديل
-    // دالة العرض للتعديل - تأكد أنها تمرر $campaigns
 public function edit(Receiving $receiving)
 {
     $families = Family::all();

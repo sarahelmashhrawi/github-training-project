@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class InventoryController {
     public function index() {
-        $items = Inventory::all();
+        $items = Inventory::all(); //جلب كافة الاصناف المسجلة في المخزن من قاعدة البيانات
         return view('inventories.index', compact('items'));
     }
 
@@ -39,7 +39,7 @@ class InventoryController {
             'category' => 'required|string',
             'storage_location' => 'required|string',
         ]);
-        $inventory->update($data);
+        $inventory->update($data);//يقوم بتحديث الصنف المخزن في قاعدة البيانات
         return redirect()->route('inventories.index')->with('success', 'تم تحديث المخزن');
     }
 
