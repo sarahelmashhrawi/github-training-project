@@ -8,7 +8,7 @@ use App\Models\Campaign;
 
 class Receiving extends Model
 {
-    protected $guarded = [];
+    protected $guarded = []; //السماح بادخال البيانات في جميع الحقول دون استثناء
 
    
     public function family()

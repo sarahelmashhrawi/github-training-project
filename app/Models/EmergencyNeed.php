@@ -7,21 +7,15 @@ use App\Models\Family;
 
 class EmergencyNeed extends Model
 {
-    protected $guarded = [];
+    protected $guarded = [];// اسمح بتخزين يا بيانات تأتي من الفورم
 
   
     public function family()
     {
         return $this->belongsTo(Family::class);
     }
-    public function reporter()
-    {
-        return $this->belongsTo(User::class, 'reported_by');
-    }
+    
 
-    // العلاقة: هذا الاحتياج يخص مخيم معين
-public function camp()
-{
-    return $this->belongsTo(Camp::class);
-}
+   
+
 }

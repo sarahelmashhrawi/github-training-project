@@ -17,11 +17,11 @@ return new class extends Migration
             $table->integer('quantity_received')->default(1);
             $table->timestamp('received_at')->useCurrent();
             $table->timestamps();
-            $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
+            $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');//اذا تم حذف الحملة او العائلة سيتم حذف سجلات الاستلام المرتبطة
             $table->foreign('family_id')->references('id')->on('families')->onDelete('cascade');
-            $table->foreign('inventory_id')->references('id')->on('inventories')->onDelete('restrict');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            $table->unique(['campaign_id','family_id','inventory_id'], 'unique_receipt_per_campaign_family_item');
+            $table->foreign('inventory_id')->references('id')->on('inventories')->onDelete('restrict');//يمنع حذف الصنف من النظام اذا كان هناك اشخاص استلموه
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');//اذا تم حذف حساب الموظف الذي سلم الطرد يبقى سجل الاستلام موجود
+            $table->unique(['campaign_id','family_id','inventory_id'], 'unique_receipt_per_campaign_family_item');//منع العائلة الواحدة من استلام نفس الصنغ مرتين
         });
     }
 
