@@ -1,4 +1,8 @@
-# مشروع ملاذ  - لارافيل 
+# مشروع ملاذ  - لارافيل           
+
+<img width="1920" height="1080" alt="Screenshot (729)" src="https://github.com/user-attachments/assets/c305b1f9-cb89-47ad-84d1-38a442660fc3" />
+<img width="1920" height="1080" alt="Screenshot (731)" src="https://github.com/user-attachments/assets/d4a3b7d7-db5e-4504-8669-f431ad7e6d5c" />
+ 
 
 ## 📝 وصف المشروع (Project Description)
 هذا المشروع عبارة عن نظام ويب تم بناؤه باستخدام إطار العمل **Laravel** ، ويحتوي على الأقسام المطلوبة للواجب مثل (اسم المشروع ملاذ لتنظيم ادارة مخيمات الايواء في غزة ). تم تطويره بهدف تطبيق مهارات إدارة المشاريع والتعاون باستخدام Git & GitHub.
