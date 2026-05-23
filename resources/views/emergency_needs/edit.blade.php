@@ -7,7 +7,7 @@
         <div class="col-md-10">
             <div class="card shadow border-0">
                 <div class="card-header bg-primary text-white py-3">
-                    <h3 class="mb-0 fs-5 font-weight-bold">تعديل البلاغ رقم #{{ $need->id }}</h3>
+                    <h3 class="mb-0 fs-5 font-weight-bold">تعديل البلاغ  #{{ $need->id }}</h3>
                 </div>
 
                 <div class="card-body p-4 text-right">
