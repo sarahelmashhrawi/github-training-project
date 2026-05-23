@@ -62,3 +62,4 @@ class DashboardController extends BaseController
         ));
     }
 }
+//Dashboard view configurations
